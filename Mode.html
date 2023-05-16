@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Darumadrop+One&display=swap"
+      rel="stylesheet"
+    />
+    <title>Sudoku Project</title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+      }
+      body {
+        background-image: url(pic/bg-mode.png);
+        background-size: cover;
+        font-family: "Darumadrop One", cursive;
+      }
+      .content {
+        text-align: center;
+        position: absolute;
+        width: 50%;
+        left: 25%;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+      .toppic {
+        font-size: 90px;
+        font-weight: 600;
+        color: #eb3d24;
+        -webkit-text-stroke-width: 2px;
+        -webkit-text-stroke-color: black;
+      }
+      .select-mode {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 30px;
+      }
+      .select-mode img {
+        height: 120px;
+      }
+      .easy {
+        background-color: greenyellow;
+        width: 160px;
+        height: 160px;
+        border: 3px solid black;
+        border-radius: 50%;
+      }
+      .medium {
+        background-color: yellow;
+        width: 160px;
+        height: 160px;
+        border: 3px solid black;
+        border-radius: 50%;
+      }
+      .hard {
+        background-color: orangered;
+        width: 160px;
+        height: 160px;
+        border: 3px solid black;
+        border-radius: 50%;
+      }
+      .text {
+        font-size: 30px;
+        transform: translateY(-20px);
+      }
+      .back {
+        position: absolute;
+        bottom: 15px;
+        left: 20px;
+      }
+      .back img {
+        width: 70px;
+      }
+      a{
+        text-decoration: none;
+        color: black;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="content">
+      <div class="toppic">LEVEL</div>
+      <div class="select-mode">
+        <a href="#">
+          <div class="easy">
+            <img src="pic/easy.png" />
+            <div class="text">easy</div>
+          </div>
+        </a>
+        <a href="#">
+          <div class="medium">
+            <img src="pic/medium.png" />
+            <div class="text">medium</div>
+          </div>
+        </a>
+        <a href="#">
+          <div class="hard">
+            <img src="pic/hard.png" />
+            <div class="text">hard</div>
+          </div>
+        </a>
+      </div>
+    </div>
+    <a href="Home.html"
+      ><div class="back"><img src="pic/back.png" /></div
+    ></a>
+  </body>
+</html>
