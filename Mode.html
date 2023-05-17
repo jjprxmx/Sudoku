@@ -66,17 +66,27 @@
         font-size: 30px;
         transform: translateY(-20px);
       }
-      .back {
-        position: absolute;
-        bottom: 15px;
-        left: 20px;
-      }
-      .back img {
-        width: 70px;
-      }
       a{
         text-decoration: none;
         color: black;
+      }
+      a :hover{
+        color: #2c66ad;
+      }
+      .select-mode a:hover{
+        border: 5px solid aqua;
+        border-radius: 50%;
+      }
+      .back {
+        position: absolute;
+        bottom: 30px;
+        left: 35px;
+      }
+      .back img {
+        width: 100px;
+      }
+      .back :hover{
+        filter: invert(100%);
       }
     </style>
   </head>
@@ -84,19 +94,19 @@
     <div class="content">
       <div class="toppic">LEVEL</div>
       <div class="select-mode">
-        <a href="#">
+        <a href="Easy-Mode.html">
           <div class="easy">
             <img src="pic/easy.png" />
             <div class="text">easy</div>
           </div>
         </a>
-        <a href="#">
+        <a href="Medium-Mode.html">
           <div class="medium">
             <img src="pic/medium.png" />
             <div class="text">medium</div>
           </div>
         </a>
-        <a href="#">
+        <a href="Hard-mode.html">
           <div class="hard">
             <img src="pic/hard.png" />
             <div class="text">hard</div>
