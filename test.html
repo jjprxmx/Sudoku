@@ -1,0 +1,114 @@
+<style>
+    .cell{
+        width: 50px;
+        height: 50px;
+    }
+</style>
+<div id="test">
+    
+    
+</div>
+<script>
+    const numRand = [1,2,3,4,5,6,7,8,9]
+    //Data[y][x]
+    let Data = [[],[],[],[],[],[],[],[],[]]
+
+    function random(max) {
+                 return parseInt(Math.random() * max) % max
+              }
+
+    const samecheck =(x, y, value)=>{
+        let i = 0
+        while(i<x){
+            if(value != Data[i][x] && value != Data[y][i]){
+                return true
+                break
+            }else{
+                return false
+            }
+            i++
+        }
+    }
+
+    function randcard(){
+        let x = 0
+        let y = 0
+        let currentRandom;
+        let found;
+
+                    //random
+                while(y<9){
+                    currentRandom = numRand[random(numRand.length)]
+
+                   let i = 0
+                        while(i<x){
+                            if(currentRandom == Data[y][i]){
+                                console.log(`Found same num: ${currentRandom} X:${x} Y:${y}`)
+                                let newNum = 1
+                                if(newNum != Data[y][i]){
+                                    Data[y].splice(x, 0, newNum)
+                                }else{
+                                    newNum++
+                                }
+                                found = true
+                                break      
+                            }else{
+                                Data[y].splice(x, 0, currentRandom)
+                                found = false
+                                break
+                            }
+                            i++
+                        }
+                    x++
+
+                      if(x==3){
+                        x=0
+                        y++
+                      }
+                }
+    }              
+    randcard()
+
+
+class Sudoku{
+   
+    
+    constructor(){
+        this.createcard(81)
+    }
+
+    createcard(amount){
+        let i = 0;
+        let x = 0;
+        let y = 0;
+            while(i<amount){
+              const cardZoneElm = document.createElement("input");
+              cardZoneElm.setAttribute("id", `x${x}y${y}`)
+              cardZoneElm.setAttribute("class", `cell`)
+              
+              // Append to another element:
+              const newline = document.createElement("br");
+              const newline2 = document.createElement("br");
+              const space = document.createElement("span");
+              space.innerHTML = ";"
+              document.getElementById("test").appendChild(cardZoneElm);
+              if((i+1)%3 == 0){
+                document.getElementById(`test`).appendChild(space);
+              }
+              if((i+1)%9 == 0){
+                x = -1
+                document.getElementById(`test`).appendChild(newline);
+                y++
+              }
+              if((i+1)%27 == 0){
+                document.getElementById(`test`).appendChild(newline2)
+              }
+              
+              i++
+              x++
+                  }
+        }
+    }
+
+    const test = new Sudoku
+</script>

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preme so cute</title>
+
+<style>
+    .cell{
+        width: 50px; height: 50px;
+    }
+    .templat{
+        display: flex;
+        flex-direction: column;
+    }
+</style>
+
+</head>
+<body>
+    <div class="Sudoku">
+                <input id="1" class="cell" >
+            </div>
+        </div>
+    </div>
+
+    <!--<div class="image">
+        <img id="1" src="/preme/picture/2.png" class="img-1" /> 
+        <img id="2" src="/preme/picture/3.png" class="img-1" /> 
+        <img id="3" src="/preme/picture/4.png" class="img-1" /> 
+        <img id="4" src="/preme/picture/5.png" class="img-1" /> 
+        <img id="5" src="/preme/picture/6.png" class="img-1" /> 
+        <img id="6" src="/preme/picture/7.png" class="img-1" /> 
+        <img id="7" src="/preme/picture/8.png" class="img-1" /> 
+        <img id="8" src="/preme/picture/9.png" class="img-1" /> 
+        <img id="9" src="/preme/picture/10.png" class="img-1" /> 
+    </div>-->
+
+
+<script>
+
+
+
+    var cellList = [
+    {value: '1', isFaceDown: true},
+    {value: '4' , isFaceDown: true},
+    {value: '6', isFaceDown: true},
+    {value: '2', isFaceDown: true},
+    {value: '7', isFaceDown: true},
+    {value: '8', isFaceDown: true},
+    {value: '9', isFaceDown: true},
+    {value: '3', isFaceDown: true},
+    {value: '5', isFaceDown: true},
+
+    {value: '8', isFaceDown: true},
+    {value: '5' , isFaceDown: true},
+    {value: '7', isFaceDown: true},
+    {value: '3', isFaceDown: true},
+    {value: '4', isFaceDown: true},
+    {value: '9', isFaceDown: true},
+    {value: '1', isFaceDown: true},
+    {value: '6', isFaceDown: true},
+    {value: '2', isFaceDown: true},
+
+    {value: '2', isFaceDown: true},
+    {value: '9' , isFaceDown: true},
+    {value: '3', isFaceDown: true},
+    {value: '6', isFaceDown: true},
+    {value: '1', isFaceDown: true},
+    {value: '5', isFaceDown: true},
+    {value: '8', isFaceDown: true},
+    {value: '4', isFaceDown: true},
+    {value: '7', isFaceDown: true},
+
+    {value: '3', isFaceDown: true},
+    {value: '7' , isFaceDown: true},
+    {value: '9', isFaceDown: true},
+    {value: '8', isFaceDown: true},
+    {value: '2', isFaceDown: true},
+    {value: '1', isFaceDown: true},
+    {value: '6', isFaceDown: true},
+    {value: '5', isFaceDown: true},
+    {value: '4', isFaceDown: true},
+
+    {value: '4', isFaceDown: true},
+    {value: '6' , isFaceDown: true},
+    {value: '1', isFaceDown: true},
+    {value: '5', isFaceDown: true},
+    {value: '3', isFaceDown: true},
+    {value: '7', isFaceDown: true},
+    {value: '2', isFaceDown: true},
+    {value: '8', isFaceDown: true},
+    {value: '9', isFaceDown: true},
+
+    {value: '5', isFaceDown: true},
+    {value: '8' , isFaceDown: true},
+    {value: '2', isFaceDown: true},
+    {value: '9', isFaceDown: true},
+    {value: '6', isFaceDown: true},
+    {value: '4', isFaceDown: true},
+    {value: '3', isFaceDown: true},
+    {value: '7', isFaceDown: true},
+    {value: '1', isFaceDown: true},
+
+    {value: '7', isFaceDown: true},
+    {value: '3' , isFaceDown: true},
+    {value: '4', isFaceDown: true},
+    {value: '1', isFaceDown: true},
+    {value: '9', isFaceDown: true},
+    {value: '6', isFaceDown: true},
+    {value: '5', isFaceDown: true},
+    {value: '2', isFaceDown: true},
+    {value: '8', isFaceDown: true},
+
+    {value: '6', isFaceDown: true},
+    {value: '1' , isFaceDown: true},
+    {value: '8', isFaceDown: true},
+    {value: '7', isFaceDown: true},
+    {value: '5', isFaceDown: true},
+    {value: '2', isFaceDown: true},
+    {value: '4', isFaceDown: true},
+    {value: '9', isFaceDown: true},
+    {value: '3', isFaceDown: true},
+
+    {value: '9', isFaceDown: true},
+    {value: '2' , isFaceDown: true},
+    {value: '5', isFaceDown: true},
+    {value: '4', isFaceDown: true},
+    {value: '8', isFaceDown: true},
+    {value: '3', isFaceDown: true},
+    {value: '7', isFaceDown: true},
+    {value: '1', isFaceDown: true},
+    {value: '6', isFaceDown: true},
+    ]
+
+    for (let Idx=0; Idx < 81; Idx++) {
+        let temp = cellList[Idx]
+        cellList.splice(Idx, 1, {id: Idx+1, value: temp.value, isFaceDown: temp.isFaceDown})
+        
+    }
+
+    function htmlToElem(html) {
+      let temp = document.createElement('template');
+      html = html.trim(); // Never return a space text node as a result
+      temp.innerHTML = html;
+      return temp.content.firstChild;
+    }
+
+
+
+    function rendCell(){
+        var smallCell = document.getElementsByClassName('cell')[0]
+        smallCell.innerHTML =" "
+
+        for (var idx = 0; idx < cellList.length; idx++) {
+        var smcell = cardList[idx]
+        var cellElm
+
+        if (smcell.isFaceDown) {
+            cellElm = htmlToElem([
+            '<div class="cell">'
+            ])
+        }  
+        
+
+    }
+    }
+</script>
+    
+</body>
+</html>
+    
+     
