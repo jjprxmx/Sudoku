@@ -1,4 +1,9 @@
 class Sudoku{
+    alert=[
+      "พรีมน่ารักมาก",
+      "สู้ๆนะ",
+      "ไม่แปลกที่เขาไม่รัก"
+    ]
     countbaby=0;
     selectDigits =0 
     HideList = [] 
@@ -9,19 +14,45 @@ class Sudoku{
     board;
         constructor(mode){
             if(mode == "easy"){
-                this.hidetotal = 30
+                this.hidetotal = 32
             }else if(mode == "med"){
-                this.hidetotal = 50
+                this.hidetotal = 48
             }else{
-                this.hidetotal = 70
+                this.hidetotal = 64
             }
           this.board = this.createBoard()
           this.generateSudoku()
           this.FullBoard()
           this.modeselect(this.hidetotal)
-         this.Hide()
+          this.Hide()
           this.createCell(81)
+          this.LuckyBoardCheck() 
       }
+
+
+        LuckyBoardCheck(){
+          for(let i=1; i<10; i++){
+            if(this.LuckyCount(i)){
+              document.getElementById(`${i}`).setAttribute("onclick", "eiei")
+              document.getElementById(`${i}`).setAttribute("class", "digits-cell-disabled")
+            }
+          }
+        }
+
+        LuckyCount(num){
+          let stack = 0
+
+          for(let i=0; i<81; i++){
+            if(num == this.RealBoard[i].value && !this.RealBoard[i].isHide){
+              stack++
+            }
+          }
+
+          if(stack == 9) return true
+          
+          return false
+        }
+
         Hide(){
             for(let i=0; i<this.hidetotal; i++){
                 this.RealBoard[this.HideList[i]] = {value: this.RealBoard[this.HideList[i]].value, isHide: true}
@@ -222,20 +253,23 @@ class Sudoku{
           }
           // when click correct, css change
          click(id){
+          
                 if( this.RealBoard[id-1].value==this.selectDigits){ 
                     
                     //console.log(this.counttest())
-                    document.getElementById(`cell${id}`).innerHTML = `<img src="/preme/picture/${this.selectDigits+1}.png" class="testimg-select" />`
+                    document.getElementById(`cell${id}`).setAttribute("class", "testimg-select")
+                    document.getElementById(`cell${id}`).innerHTML = `<img src="/preme/picture/${this.selectDigits+1}.png" class="testimg" />`
                     this.RealBoard[id-1]={value:this.selectDigits, isHide: false}
                     console.log(this.RealBoard[id-1])
                    //decrease  Hidelist
                    this.HideList.splice(this.HideList.indexOf(id-1),1)
                    this.countTypeOfBear()
                    
+                   if(this.HideList.length == 0) alert("ชนะแล้ว เก่งเกินคน 👽👽")
                 }
                 else
                 {
-                    alert("พรีมสวยมาก")
+                    alert(this.alert[this.random(this.alert.length)])
                 }
 
                 }
@@ -256,6 +290,8 @@ class Sudoku{
                     for(let l=0;l<keep.length;l++){
                         document.getElementById(`cell${(keep[l]+1)}`).className ="sudoku-cell"
                         document.getElementById(`cell${(keep[l]+1)}`).innerHTML = `<img src="/preme/picture/${this.selectDigits+1}.png" class="testimg" />`
+                        document.getElementById(`${this.selectDigits}`).setAttribute("onclick", "eiei")
+                        document.getElementById(`${this.selectDigits}`).setAttribute("class", "digits-cell-disabled")
                         console.log("keep "+(keep[l]+1))
                     }
                    }
