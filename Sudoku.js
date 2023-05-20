@@ -1,4 +1,6 @@
 class Sudoku{
+    countbaby=0;
+    selectDigits =0 
     HideList = [] 
     fail = 0
     success = 0 
@@ -17,14 +19,14 @@ class Sudoku{
           this.generateSudoku()
           this.FullBoard()
           this.modeselect(this.hidetotal)
-          this.Hide()
+         this.Hide()
           this.createCell(81)
       }
         Hide(){
             for(let i=0; i<this.hidetotal; i++){
-                this.RealBoard[this.HideList[i]] = true
+                this.RealBoard[this.HideList[i]] = {value: this.RealBoard[this.HideList[i]].value, isHide: true}
             }
-         }
+         } 
          //Change 2D Arr to 1D Arr
         FullBoard(){
             let j =0
@@ -102,8 +104,7 @@ class Sudoku{
   
          display(id,value,isFaceDown){
         
-            if(isFaceDown===false){
-
+            if(isFaceDown===false){       
                 document.getElementById(`cell${id}`).innerHTML = `<img src="/preme/picture/${value+1}.png" class="testimg" />`;
   
             }else{
@@ -206,9 +207,9 @@ class Sudoku{
           }
 
           select(id){
+            this.selectDigits=id
             for(let i=0;i<81;i++){
-               if( this.RealBoard[i].value==id){
-                console.log(i)
+               if(this.RealBoard[i].value==id && this.RealBoard[i].isHide!=true){
                 document.getElementById(`cell${i+1}`).className="testimg-select"
                }
                else{
@@ -219,17 +220,56 @@ class Sudoku{
             
                
           }
-
-          click(id){
-                if( this.RealBoard[id].value==1){ 
-                console.log("preme cute")
+          // when click correct, css change
+         click(id){
+                if( this.RealBoard[id-1].value==this.selectDigits){ 
+                    
+                    //console.log(this.counttest())
+                    document.getElementById(`cell${id}`).innerHTML = `<img src="/preme/picture/${this.selectDigits+1}.png" class="testimg-select" />`
+                    this.RealBoard[id-1]={value:this.selectDigits, isHide: false}
+                    console.log(this.RealBoard[id-1])
+                   //decrease  Hidelist
+                   this.HideList.splice(this.HideList.indexOf(id-1),1)
+                   this.countTypeOfBear()
+                   
                 }
                 else
-                {console.log("yung cute")}
-            
+                {
+                    alert("พรีมสวยมาก")
+                }
 
+                }
+
+         
+           
+                
+        countTypeOfBear(){
+            let keep = []
+                for(let k=0;k<81;k++){
+                if( this.selectDigits == this.RealBoard[k].value && this.RealBoard[k].isHide==false ){ 
+                    this.countbaby++
+                    keep.push(k)
+                }else if(this.selectDigits == this.RealBoard[k].value && this.RealBoard[k].isHide){
+                    keep.push(k)
+                }
+                if(this.countbaby==9){
+                    for(let l=0;l<keep.length;l++){
+                        document.getElementById(`cell${(keep[l]+1)}`).className ="sudoku-cell"
+                        document.getElementById(`cell${(keep[l]+1)}`).innerHTML = `<img src="/preme/picture/${this.selectDigits+1}.png" class="testimg" />`
+                        console.log("keep "+(keep[l]+1))
+                    }
+                   }
+
+                }
+                console.log(" countbaby "+this.countbaby)
+                this.countbaby=0
 
         }
+
     
     
     }
+            
+            
+    
+    
