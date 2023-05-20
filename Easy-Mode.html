@@ -20,34 +20,49 @@
       }
       .main-content {
         display: flex;
-      
       }
       .digit {
         width: 20%;
-        height: 20%;
+        height: 657px;
       }
       .digit table {
-        margin-left: 250px;
+        margin-left: auto;
         margin-right: auto;
-        margin-top: 300px;
+        margin-top: 280px;
       }
       .digits-cell {
         margin: 2px;
-        width: 60px;
-        height: 60px;
+        width: 50px;
+        height: 50px;
         border: 2px solid black;
         background-color: #bbf1c4;
 
         cursor: pointer;
       }
 
+      /*preme*/
+      .testimg {
+        margin: 2px;
+        width: 50px;
+        height: 50px;
+        cursor:default;
+      }
+
+      .testimg-select{
+        margin: 2px;
+        width: 50px;
+        height: 50px;
+        border: 2px solid rgb(250, 10, 10);
+        background-color: #bbf1c4;
+      }
+      /*--------*/
       .game {
-        width: 50%;
+        width: 60%;
       }
       .sudoku-board {
         margin-left: auto;
         margin-right: auto;
-        margin-top: 200px;
+        margin-top: 120px;
         display: grid;
         grid-template-columns: repeat(9, 1fr);
         grid-template-rows: repeat(9, 1fr);
@@ -65,9 +80,9 @@
         background-color: white;
         cursor: pointer;
         font-size: 28px;
-
-        width: 50px; height: 50px;
       }
+      
+
       .wrong-cell {
         color: darkred;
       }
@@ -85,7 +100,7 @@
         width: 20%;
       }
       .time {
-        margin-top: 25px;
+        margin-top: 250px;
         font-size: 28px;
         color: darkgreen;
       }
@@ -124,29 +139,27 @@
       <div class="digit">
         <table>
           <tr>
-            <td><img id="0" src="/preme/picture/2.png" class="digits-cell-1" /></td>
-            <td><img id="1" src="/preme/picture/3.png" class="digits-cell-2" /></td>
-            <td><img id="2" src="/preme/picture/4.png" class="digits-cell-3" /></td>
+            <td><img onclick="test.select(1)" id="1" src="/preme/picture/2.png" class="digits-cell" /></td>
+            <td><img onclick="test.select(2)" id="2" src="/preme/picture/3.png" class="digits-cell" /></td>
+            <td><img onclick="test.select(3)" id="3" src="/preme/picture/4.png" class="digits-cell" /></td>
           </tr>
           <tr>
-            <td><img id="3" src="/preme/picture/5.png" class="digits-cell-4" /></td>
-            <td><img id="4" src="/preme/picture/6.png" class="digits-cell-5" /></td>
-            <td><img id="5" src="/preme/picture/7.png" class="digits-cell-6" /></td>
+            <td><img onclick="test.select(4)" id="4" src="/preme/picture/5.png" class="digits-cell" /></td>
+            <td><img onclick="test.select(5)" id="5" src="/preme/picture/6.png" class="digits-cell" /></td>
+            <td><img onclick="test.select(6)" id="6" src="/preme/picture/7.png" class="digits-cell" /></td>
           </tr>
           <tr>
-            <td><img id="6" src="/preme/picture/8.png" class="digits-cell-7" /></td>
-            <td><img id="7" src="/preme/picture/9.png" class="digits-cell-8" /></td>
-            <td><img id="8" src="/preme/picture/10.png" class="digits-cell-9" /></td>
+            <td><img onclick="test.select(7)" id="7" src="/preme/picture/8.png" class="digits-cell" /></td>
+            <td><img onclick="test.select(8)" id="8" src="/preme/picture/9.png" class="digits-cell" /></td>
+            <td><img onclick="test.select(9)" id="9" src="/preme/picture/10.png" class="digits-cell" /></td>
           </tr>
         </table>
       </div>
       <div class="game">
         <div class="sudoku-board" id="sudoku-board">
-         <div class="sudoku-cell" id="sudoku-cell">
-
-         </div>
           
       </div>
+    </div>
       <div class="menu">
         <div class="time">
           TIME
@@ -162,140 +175,12 @@
     ></a>
 
    <!--preme-->
+    <script src="Sudoku.js"></script>
+    
     <script>
-
-    class Sudoku{
-
-    cellList = [
-    {value: '1', isFaceDown: false},
-    {value: '4' , isFaceDown: true},
-    {value: '6', isFaceDown: true},
-    {value: '2', isFaceDown: true},
-    {value: '7', isFaceDown: true},
-    {value: '8', isFaceDown: true},
-    {value: '9', isFaceDown: true},
-    {value: '3', isFaceDown: true},
-    {value: '5', isFaceDown: true},
-
-    {value: '8', isFaceDown: true},
-    {value: '5' , isFaceDown: true},
-    {value: '7', isFaceDown: true},
-    {value: '3', isFaceDown: true},
-    {value: '4', isFaceDown: true},
-    {value: '9', isFaceDown: true},
-    {value: '1', isFaceDown: true},
-    {value: '6', isFaceDown: true},
-    {value: '2', isFaceDown: true},
-
-    {value: '2', isFaceDown: true},
-    {value: '9' , isFaceDown: true},
-    {value: '3', isFaceDown: true},
-    {value: '6', isFaceDown: true},
-    {value: '1', isFaceDown: true},
-    {value: '5', isFaceDown: true},
-    {value: '8', isFaceDown: true},
-    {value: '4', isFaceDown: true},
-    {value: '7', isFaceDown: true},
-
-    {value: '3', isFaceDown: true},
-    {value: '7' , isFaceDown: true},
-    {value: '9', isFaceDown: true},
-    {value: '8', isFaceDown: true},
-    {value: '2', isFaceDown: true},
-    {value: '1', isFaceDown: true},
-    {value: '6', isFaceDown: true},
-    {value: '5', isFaceDown: true},
-    {value: '4', isFaceDown: true},
-
-    {value: '4', isFaceDown: true},
-    {value: '6' , isFaceDown: true},
-    {value: '1', isFaceDown: true},
-    {value: '5', isFaceDown: true},
-    {value: '3', isFaceDown: true},
-    {value: '7', isFaceDown: true},
-    {value: '2', isFaceDown: true},
-    {value: '8', isFaceDown: true},
-    {value: '9', isFaceDown: true},
-
-    {value: '5', isFaceDown: true},
-    {value: '8' , isFaceDown: true},
-    {value: '2', isFaceDown: true},
-    {value: '9', isFaceDown: true},
-    {value: '6', isFaceDown: true},
-    {value: '4', isFaceDown: true},
-    {value: '3', isFaceDown: true},
-    {value: '7', isFaceDown: true},
-    {value: '1', isFaceDown: true},
-
-    {value: '7', isFaceDown: true},
-    {value: '3' , isFaceDown: true},
-    {value: '4', isFaceDown: true},
-    {value: '1', isFaceDown: true},
-    {value: '9', isFaceDown: true},
-    {value: '6', isFaceDown: true},
-    {value: '5', isFaceDown: true},
-    {value: '2', isFaceDown: true},
-    {value: '8', isFaceDown: true},
-
-    {value: '6', isFaceDown: true},
-    {value: '1' , isFaceDown: true},
-    {value: '8', isFaceDown: true},
-    {value: '7', isFaceDown: true},
-    {value: '5', isFaceDown: true},
-    {value: '2', isFaceDown: true},
-    {value: '4', isFaceDown: true},
-    {value: '9', isFaceDown: true},
-    {value: '3', isFaceDown: true},
-
-    {value: '9', isFaceDown: true},
-    {value: '2' , isFaceDown: true},
-    {value: '5', isFaceDown: true},
-    {value: '4', isFaceDown: true},
-    {value: '8', isFaceDown: true},
-    {value: '3', isFaceDown: true},
-    {value: '7', isFaceDown: true},
-    {value: '1', isFaceDown: true},
-    {value: '6', isFaceDown: true},
-    ]
-
-      constructor(){
-        this.createCell(80)
-    }
-
-   createCell(amount){
-    let i=0;
-           while(i<amount){
-             const cellZoneElm = document.createElement("input");
-             cellZoneElm.setAttribute("id", `cell ${i+1}`)
-             cellZoneElm.setAttribute("class", `sudoku-cell`)
-             
-             document.getElementById("sudoku-board").appendChild(cellZoneElm);
-
-             display(i,cellList[i].value,cellList[i].isFaceDown)
-
-             i++;
-                 }
-       }
-
-       display(id,value,isFaceDown){
-      
-          if(isFaceDown===false){
-            console.log(`${id+1} = `)
-            if(value=='1'){
-              document.getElementById(`cell ${id}`).innerHTML = `<img src="/preme/picture/2.png"/>`;
-            }
-          }
-          if(isFaceDown===true)
-          {
-            document.getElementById(`cell ${id}`).createElement("input");
-        }
-       }
-
-      
-      }
-
-    const easy = new Sudoku
+    const test = new Sudoku("easy")
     </script>
+    
 
 
 

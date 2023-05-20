@@ -25,6 +25,7 @@ class Sudoku{
                 this.RealBoard[this.HideList[i]] = true
             }
          }
+         //Change 2D Arr to 1D Arr
         FullBoard(){
             let j =0
             for(let i=0; i<10; i++){
@@ -103,10 +104,11 @@ class Sudoku{
         
             if(isFaceDown===false){
 
-                document.getElementById(`cell${id}`).innerHTML = `<img src="/preme/picture/${value+1}.png" class="digits-cell" />`;
+                document.getElementById(`cell${id}`).innerHTML = `<img src="/preme/picture/${value+1}.png" class="testimg" />`;
   
             }else{
-                document.getElementById(`cell${id}`).innerHTML="";
+                document.getElementById(`cell${id}`).innerHTML=" ";
+                document.getElementById(`cell${id}`).setAttribute("onclick", `test.click(${id});`);
             }
          }
 
@@ -202,6 +204,32 @@ class Sudoku{
             }
             return array;
           }
+
+          select(id){
+            for(let i=0;i<81;i++){
+               if( this.RealBoard[i].value==id){
+                console.log(i)
+                document.getElementById(`cell${i+1}`).className="testimg-select"
+               }
+               else{
+                document.getElementById(`cell${i+1}`).className="sudoku-cell"
+               }
+            }
+
+            
+               
+          }
+
+          click(id){
+                if( this.RealBoard[id].value==1){ 
+                console.log("preme cute")
+                }
+                else
+                {console.log("yung cute")}
+            
+
+
+        }
+    
     
     }
-  
