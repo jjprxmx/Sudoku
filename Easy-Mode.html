@@ -7,11 +7,7 @@
       href="https://fonts.googleapis.com/css2?family=Darumadrop+One&display=swap"
       rel="stylesheet"
     />
-    <!--preme-->
-    <audio id="myAudio">
-      <source src="/preme/music/game-comedy-interesting-playful-sweet-bright-childish-music-57040.mp3" type="audio/mpeg" id="main-music">
-    </audio>
-    <!---->
+
 
 
     <title>Sudoku Project</title>
@@ -61,8 +57,8 @@
 
       .testimg {
         margin: 2px;
-        width: 50px;
-        height: 50px;
+        width: 39px;
+        height: 39px;
         cursor:default;
       }
 
@@ -98,6 +94,7 @@
         background-color: white;
         cursor: pointer;
         font-size: 28px;
+
       }
       
 
@@ -150,9 +147,28 @@
       .back :hover {
         filter: invert(100%);
       }
+
+      /*Yung*/
+      .modal {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 0.4rem;
+      width: 450px;
+      padding: 1.3rem;
+      min-height: 250px;
+      position: absolute;
+      top: 20%;
+      background-color: white;
+      border: 1px solid #ddd;
+      border-radius: 15px;
+      z-index: 2;
+    }
+
     </style>
   </head>
   <body>
+
     <div class="main-content">
       <div class="digit">
         <table>
@@ -174,6 +190,10 @@
         </table>
       </div>
       <div class="game">
+
+      <!--preme-->
+        <div id="message" class="message"></div>
+      <!--preme(ฝากทำ css ไม่ก็อะไรก็ได้ class="message")-->
         <div class="sudoku-board" id="sudoku-board">
           
       </div>
@@ -198,9 +218,6 @@
     <script>
     const sudokuCute = new Sudoku("easy")
     </script>
-    
-
-
 
   </body>
 </html>
