@@ -11,14 +11,15 @@ class Sudoku{
     success = 0 
     hidetotal;
     RealBoard = []
+    Fetch = []
     board;
         constructor(mode){
             if(mode == "easy"){
-                this.hidetotal = 32  
+                this.hidetotal = 5   
             }else if(mode == "med"){
                 this.hidetotal = 48
             }else{
-                this.hidetotal = 68
+                this.hidetotal = 64
             }
           this.board = this.createBoard() //create 2D Array store in this.board property
           this.generateSudoku() //gen num1-9 in 2D Array
@@ -27,10 +28,49 @@ class Sudoku{
           this.Hide() //Hide X positions use data in this.HideList
           this.createCell(81) //Create Sudoku Board (HTML)
           this.LuckyBoardCheck() //if start game and get that bear=9 -> disable that bear
-          //this.playAudio()
-      }
+          this.sound("sound")
+          this.Fetch = this.RealBoard
+        }
 
+        sound(type){
+          let sound = document.getElementById("sound");
 
+          switch(type){
+
+            case "sound": let bg = document.createElement('audio');
+                          bg.id       = 'bg';
+                          bg.src      = '/preme/music/game-comedy-interesting-playful-sweet-bright-childish-music-57040.mp3';
+                          bg.type     = 'audio/mpeg';
+                          bg.loop = true
+                          bg.autoplay = true
+                          document.getElementById('sudoku-board').appendChild(bg);
+
+                          let createsound = document.createElement('audio');
+                          createsound.id= `sound`
+                          createsound.type=`audio/mpeg`
+                          createsound.autoplay= true
+                          document.getElementById('sudoku-board').appendChild(createsound);
+                          
+                          break
+
+            case "correct": sound.src = `/preme/music/digitscell.mp3`
+                            sound.play()
+                            
+                            break
+
+            case "wrong":   sound.src = `/preme/music/digitcell-wrong.mp3`
+                            sound.play()
+                            
+                            break
+           case "win":      sound.src = `/preme/music/victory.mp3`
+                            sound.play()
+                            
+                            break
+
+            default: break
+          }
+          
+        }
         LuckyBoardCheck(){
           for(let i=1; i<10; i++){
             if(this.LuckyCount(i)){
@@ -253,7 +293,7 @@ class Sudoku{
                
           }
           // when click correct, css change
-         click(id){
+        click(id){
           
                 if( this.RealBoard[id-1].value==this.selectDigits){ 
                     
@@ -265,12 +305,17 @@ class Sudoku{
                    //decrease  Hidelist
                    this.HideList.splice(this.HideList.indexOf(id-1),1)
                    this.countTypeOfBear()
+                   this.sound("correct")
                    
-                   if(this.HideList.length == 0) alert("ชนะแล้ว เก่งเกินคน")
+                   if(this.HideList.length == 0){ 
+                    this.sound("win")
+                    document.getElementById(`message`).innerHTML=`<p>ชนะแล้ว เก่งเกินคน</p>`
+                    }
                 }
                 else
                 {
-                    alert(this.alert[this.random(this.alert.length)])
+                    this.sound("wrong")
+                    document.getElementById(`message`).innerHTML=`<p>${this.alert[this.random(this.alert.length)]}</p>`
                 }
 
                 }
@@ -303,13 +348,6 @@ class Sudoku{
                 this.countbaby=0
 
         }
-
-        //Music
-         /*mainMusic = document.getElementById("myAudio");
-         playAudio() { 
-          mainMusic.play(); 
-
-        } */
     
     
     }
