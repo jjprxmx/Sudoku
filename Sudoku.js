@@ -1,8 +1,8 @@
 class Sudoku{
     alert=[
-      "พรีมน่ารักมาก",
-      "สู้ๆนะ",
-      "ไม่แปลกที่เขาไม่รัก"
+      "เเค่นี้ก็เล่นผิด ไม่เเเปลกที่เค้าไม่รัก",
+      "ไม่ใช่ๆ เริ่มใหม่สิ เเต่เรื่องของเขาเริ่มใหม่ไม่ได้นะ",
+      "ผิดได้ไง กลับบ้านไปดูดนมนอนซะ!"
     ]
     countbaby=0;
     selectDigits =0 
@@ -14,7 +14,7 @@ class Sudoku{
     board;
         constructor(mode){
             if(mode == "easy"){
-                this.hidetotal = 32
+                this.hidetotal = 32  
             }else if(mode == "med"){
                 this.hidetotal = 48
             }else{
@@ -27,6 +27,7 @@ class Sudoku{
           this.Hide()
           this.createCell(81)
           this.LuckyBoardCheck() 
+          this.playAudio()
       }
 
 
@@ -140,7 +141,7 @@ class Sudoku{
   
             }else{
                 document.getElementById(`cell${id}`).innerHTML=" ";
-                document.getElementById(`cell${id}`).setAttribute("onclick", `test.click(${id});`);
+                document.getElementById(`cell${id}`).setAttribute("onclick", `sudokuCute.click(${id});`);
             }
          }
 
@@ -265,7 +266,7 @@ class Sudoku{
                    this.HideList.splice(this.HideList.indexOf(id-1),1)
                    this.countTypeOfBear()
                    
-                   if(this.HideList.length == 0) alert("ชนะแล้ว เก่งเกินคน 👽👽")
+                   if(this.HideList.length == 0) alert("ชนะแล้ว เก่งเกินคน")
                 }
                 else
                 {
@@ -290,6 +291,7 @@ class Sudoku{
                     for(let l=0;l<keep.length;l++){
                         document.getElementById(`cell${(keep[l]+1)}`).className ="sudoku-cell"
                         document.getElementById(`cell${(keep[l]+1)}`).innerHTML = `<img src="/preme/picture/${this.selectDigits+1}.png" class="testimg" />`
+                        
                         document.getElementById(`${this.selectDigits}`).setAttribute("onclick", "eiei")
                         document.getElementById(`${this.selectDigits}`).setAttribute("class", "digits-cell-disabled")
                         console.log("keep "+(keep[l]+1))
@@ -302,6 +304,12 @@ class Sudoku{
 
         }
 
+        //Music
+         mainMusic = document.getElementById("myAudio");
+         playAudio() { 
+          mainMusic.play(); 
+
+        } 
     
     
     }
