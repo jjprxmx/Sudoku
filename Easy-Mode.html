@@ -120,6 +120,8 @@
         color: darkgreen;
       }
       .time-box {
+        /*-Jane-*/
+        text-align: center;
         width: 200px;
         height: 50px;
         border: 3px solid darkgreen;
@@ -148,22 +150,6 @@
         filter: invert(100%);
       }
 
-      /*Yung*/
-      .modal {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      gap: 0.4rem;
-      width: 450px;
-      padding: 1.3rem;
-      min-height: 250px;
-      position: absolute;
-      top: 20%;
-      background-color: white;
-      border: 1px solid #ddd;
-      border-radius: 15px;
-      z-index: 2;
-    }
 
     </style>
   </head>
@@ -201,10 +187,10 @@
       <div class="menu">
         <div class="time">
           TIME
-          <div class="time-box"></div>
+          <div class="time-box" id="setTime">00:00:00</div>
         </div>
         &nbsp;
-        <div class="reset" onclick="">RESET</div>
+        <div class="reset" onclick="" id="resetButton">RESET</div>
       </div>
     </div>
 
@@ -214,9 +200,11 @@
 
    <!--preme-->
     <script src="Sudoku.js"></script>
-    
+
     <script>
     const sudokuCute = new Sudoku("easy")
+    Sudoku.createaudio() 
+
     </script>
 
   </body>
