@@ -18,16 +18,16 @@ class Sudoku{
             }else if(mode == "med"){
                 this.hidetotal = 48
             }else{
-                this.hidetotal = 64
+                this.hidetotal = 68
             }
-          this.board = this.createBoard()
-          this.generateSudoku()
-          this.FullBoard()
-          this.modeselect(this.hidetotal)
-          this.Hide()
-          this.createCell(81)
-          this.LuckyBoardCheck() 
-          this.playAudio()
+          this.board = this.createBoard() //create 2D Array store in this.board property
+          this.generateSudoku() //gen num1-9 in 2D Array
+          this.FullBoard() //change 2D Arr(this.board) to 1D Arr(this.RealBoard)
+          this.modeselect(this.hidetotal) //Random X positions to hide store in this.HideList
+          this.Hide() //Hide X positions use data in this.HideList
+          this.createCell(81) //Create Sudoku Board (HTML)
+          this.LuckyBoardCheck() //if start game and get that bear=9 -> disable that bear
+          //this.playAudio()
       }
 
 
@@ -305,11 +305,11 @@ class Sudoku{
         }
 
         //Music
-         mainMusic = document.getElementById("myAudio");
+         /*mainMusic = document.getElementById("myAudio");
          playAudio() { 
           mainMusic.play(); 
 
-        } 
+        } */
     
     
     }
