@@ -40,6 +40,34 @@
         cursor: pointer;
       }
 
+      /*preme*/
+      .digits-cell-disabled {
+        margin: 2px;
+        width: 50px;
+        height: 50px;
+        border: 2px solid black;
+        background-color: #f1bbbb;
+
+        cursor: not-allowed;
+      }
+
+
+      .testimg {
+        margin: 2px;
+        width: 50px;
+        height: 50px;
+        cursor:default;
+      }
+
+      .testimg-select{
+        margin: 2px;
+        width: 50px;
+        height: 50px;
+        border: 2px solid rgb(250, 10, 10);
+        background-color: #bbf1c4;
+      }
+      /*--------*/
+
       .game {
         width: 60%;
       }
@@ -56,6 +84,7 @@
         height: 500px;
       }
       .sudoku-cell {
+
         display: flex;
         justify-content: center;
         align-items: center;
@@ -121,25 +150,25 @@
       <div class="digit">
         <table>
           <tr>
-            <td><div class="digits-cell"></div></td>
-            <td><div class="digits-cell"></div></td>
-            <td><div class="digits-cell"></div></td>
+            <td><img onclick="sudokuCute.select(1)" id="1" src="/preme/picture/2.png" class="digits-cell" /></td>
+            <td><img onclick="sudokuCute.select(2)" id="2" src="/preme/picture/3.png" class="digits-cell" /></td>
+            <td><img onclick="sudokuCute.select(3)" id="3" src="/preme/picture/4.png" class="digits-cell" /></td>
           </tr>
           <tr>
-            <td><div class="digits-cell"></div></td>
-            <td><div class="digits-cell"></div></td>
-            <td><div class="digits-cell"></div></td>
+            <td><img onclick="sudokuCute.select(4)" id="4" src="/preme/picture/5.png" class="digits-cell" /></td>
+            <td><img onclick="sudokuCute.select(5)" id="5" src="/preme/picture/6.png" class="digits-cell" /></td>
+            <td><img onclick="sudokuCute.select(6)" id="6" src="/preme/picture/7.png" class="digits-cell" /></td>
           </tr>
           <tr>
-            <td><div class="digits-cell"></div></td>
-            <td><div class="digits-cell"></div></td>
-            <td><div class="digits-cell"></div></td>
+            <td><img onclick="sudokuCute.select(7)" id="7" src="/preme/picture/8.png" class="digits-cell" /></td>
+            <td><img onclick="sudokuCute.select(8)" id="8" src="/preme/picture/9.png" class="digits-cell" /></td>
+            <td><img onclick="sudokuCute.select(9)" id="9" src="/preme/picture/10.png" class="digits-cell" /></td>
           </tr>
         </table>
       </div>
       <div class="game">
-        <div class="sudoku-board">
-          <div class="sudoku-cell">1</div>
+        <div class="sudoku-board" id="sudoku-board">
+         <!-- <div class="sudoku-cell">1</div>
           <div class="sudoku-cell"></div>
           <div class="sudoku-cell"></div>
           <div class="sudoku-cell"></div>
@@ -220,7 +249,7 @@
           <div class="sudoku-cell"></div>
           <div class="sudoku-cell"></div>
           <div class="sudoku-cell"></div>
-        </div>
+        </div>-->
       </div>
       <div class="menu">
         <div class="time">
@@ -235,6 +264,15 @@
     <a href="Mode.html"
       ><div class="back"><img src="pic/back.png" /></div
     ></a>
+
+ <!--preme-->
+ <script src="Sudoku.js"></script>
+    
+ <script>
+ const sudokuCute = new Sudoku("hard")
+ </script>
+
+
   </body>
 </html>
 
