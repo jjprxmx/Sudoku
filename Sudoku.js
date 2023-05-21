@@ -15,11 +15,11 @@ class Sudoku{
     board;
         constructor(mode){
             if(mode == "easy"){
-                this.hidetotal = 5   
+                this.hidetotal = 40   
             }else if(mode == "med"){
-                this.hidetotal = 48
+                this.hidetotal = 50
             }else{
-                this.hidetotal = 64
+                this.hidetotal = 60
             }
           this.board = this.createBoard() //create 2D Array store in this.board property
           this.generateSudoku() //gen num1-9 in 2D Array
@@ -28,30 +28,28 @@ class Sudoku{
           this.Hide() //Hide X positions use data in this.HideList
           this.createCell(81) //Create Sudoku Board (HTML)
           this.LuckyBoardCheck() //if start game and get that bear=9 -> disable that bear
-          this.sound("sound")
           this.Fetch = this.RealBoard
+        }
+        static createaudio(){
+           let bg = document.createElement('audio');
+          bg.id       = 'bg';
+          bg.src      = '/preme/music/game-comedy-interesting-playful-sweet-bright-childish-music-57040.mp3';
+          bg.type     = 'audio/mpeg';
+          bg.loop = true
+          bg.autoplay = true
+          document.getElementsByTagName(`body`)[0].appendChild(bg);
+
+          let createsound = document.createElement('audio');
+          createsound.id= `sound`
+          createsound.type=`audio/mpeg`
+          createsound.autoplay= true
+          document.getElementsByTagName(`body`)[0].appendChild(createsound);
         }
 
         sound(type){
           let sound = document.getElementById("sound");
 
           switch(type){
-
-            case "sound": let bg = document.createElement('audio');
-                          bg.id       = 'bg';
-                          bg.src      = '/preme/music/game-comedy-interesting-playful-sweet-bright-childish-music-57040.mp3';
-                          bg.type     = 'audio/mpeg';
-                          bg.loop = true
-                          bg.autoplay = true
-                          document.getElementById('sudoku-board').appendChild(bg);
-
-                          let createsound = document.createElement('audio');
-                          createsound.id= `sound`
-                          createsound.type=`audio/mpeg`
-                          createsound.autoplay= true
-                          document.getElementById('sudoku-board').appendChild(createsound);
-                          
-                          break
 
             case "correct": sound.src = `/preme/music/digitscell.mp3`
                             sound.play()
