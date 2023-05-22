@@ -2,11 +2,13 @@ class Sudoku{
     alert=[
       "เเค่นี้ก็เล่นผิด ไม่เเเปลกที่เค้าไม่รัก",
       "ไม่ใช่ๆ เริ่มใหม่สิ เเต่เรื่องของเขาเริ่มใหม่ไม่ได้นะ",
-      "ผิดได้ไง กลับบ้านไปดูดนมนอนซะ!"
+      "ผิดได้ไง กลับบ้านไปดูดนมนอนซะ!",
+      "ถ้าเค้าจะรักตอบผิดเค้าก็รัก เพราะงั้นตอบใหม่เถอะ"
     ]
     countbaby=0;
     selectDigits =0 
-    HideList = [] 
+    HideList = []
+    NewHideList = [] 
     fail = 0
     success = 0 
     hidetotal;
@@ -28,10 +30,9 @@ class Sudoku{
           this.Hide() //Hide X positions use data in this.HideList
           this.createCell(81) //Create Sudoku Board (HTML)
           this.LuckyBoardCheck() //if start game and get that bear=9 -> disable that bear
-          this.Fetch = this.RealBoard
         }
         static createaudio(){
-           let bg = document.createElement('audio');
+          let bg = document.createElement('audio');
           bg.id       = 'bg';
           bg.src      = '/preme/music/game-comedy-interesting-playful-sweet-bright-childish-music-57040.mp3';
           bg.type     = 'audio/mpeg';
@@ -45,6 +46,7 @@ class Sudoku{
           createsound.autoplay= true
           document.getElementsByTagName(`body`)[0].appendChild(createsound);
         }
+
 
         sound(type){
           let sound = document.getElementById("sound");
@@ -74,6 +76,9 @@ class Sudoku{
             if(this.LuckyCount(i)){
               document.getElementById(`${i}`).setAttribute("onclick", "eiei")
               document.getElementById(`${i}`).setAttribute("class", "digits-cell-disabled")
+            }else{
+              document.getElementById(`${i}`).setAttribute("onclick", `sudokuCute.select(${i})`)
+              document.getElementById(`${i}`).setAttribute("class", "digits-cell")
             }
           }
         }
@@ -95,6 +100,7 @@ class Sudoku{
         Hide(){
             for(let i=0; i<this.hidetotal; i++){
                 this.RealBoard[this.HideList[i]] = {value: this.RealBoard[this.HideList[i]].value, isHide: true}
+                this.Fetch[this.HideList[i]] = {value: this.RealBoard[this.HideList[i]].value, isHide: true}
             }
          } 
          //Change 2D Arr to 1D Arr
@@ -107,6 +113,7 @@ class Sudoku{
                 } 
                 if(j===9) break
                 this.RealBoard.push({value: this.board[j][i], isHide: false})
+                this.Fetch.push({value: this.board[j][i], isHide: false})
             }
         }
 
@@ -153,16 +160,19 @@ class Sudoku{
               let current = this.random(81)
               if(i == 0){
                 this.HideList.push(current)
+                this.NewHideList.push(current)
                       i++ 
               }
   
               if(this.check(current)){
                 this.HideList.push(current)
+                this.NewHideList.push(current)
                   }else{
                       while(true){
                         current = this.random(81)
                           if(this.check(current)){
                             this.HideList.push(current)
+                            this.NewHideList.push(current)
                               break
                           }  
                       }
@@ -176,6 +186,7 @@ class Sudoku{
         
             if(isFaceDown===false){       
                 document.getElementById(`cell${id}`).innerHTML = `<img src="/preme/picture/${value+1}.png" class="testimg" />`;
+                document.getElementById(`cell${id}`).setAttribute("class", `sudoku-cell`);
   
             }else{
                 document.getElementById(`cell${id}`).innerHTML=" ";
@@ -317,9 +328,6 @@ class Sudoku{
                 }
 
                 }
-
-         
-           
                 
         countTypeOfBear(){
             let keep = []
@@ -347,6 +355,7 @@ class Sudoku{
 
         }
     
+
     
     }
             
