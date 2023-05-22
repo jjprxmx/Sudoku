@@ -15,7 +15,7 @@ class Sudoku{
     board;
         constructor(mode){
             if(mode == "easy"){
-                this.hidetotal = 40   
+                this.hidetotal = 40 
             }else if(mode == "med"){
                 this.hidetotal = 50
             }else{
@@ -382,6 +382,13 @@ class Sudoku{
         timeInterval;
         elapsedTime = 0;
 
+        // Store to LocalStorage
+        test(){
+          window.localStorage.setItem('board', JSON.stringify(this.RealBoard));
+          window.localStorage.setItem('hide', JSON.stringify(this.HideList));
+        }
+        //
+        
         startTimer() {
           this.startTime = Date.now() - this.elapsedTime;
           this.timeInterval = window.localStorage.getItem('storeTimeInterval');
