@@ -21,31 +21,61 @@ class Sudoku{
             }else{
                 this.hidetotal = 60
             }
+          this.startTime = null;
           this.board = this.createBoard() //create 2D Array store in this.board property
           this.generateSudoku() //gen num1-9 in 2D Array
           this.FullBoard() //change 2D Arr(this.board) to 1D Arr(this.RealBoard)
           this.modeselect(this.hidetotal) //Random X positions to hide store in this.HideList
           this.Hide() //Hide X positions use data in this.HideList
-          this.createCell(81) //Create Sudoku Board (HTML)
+          this.createCell(81)//Create Sudoku Board (HTML)   
           this.LuckyBoardCheck() //if start game and get that bear=9 -> disable that bear
-        }
+      }
         static createaudio(){
           let bg = document.createElement('audio');
-          bg.id       = 'bg';
-          bg.src      = '/preme/music/game-comedy-interesting-playful-sweet-bright-childish-music-57040.mp3';
-          bg.type     = 'audio/mpeg';
-          bg.loop = true
-          bg.autoplay = true
-          document.getElementsByTagName(`body`)[0].appendChild(bg);
+  bg.id = 'bg';
+  bg.src = '/preme/music/game-comedy-interesting-playful-sweet-bright-childish-music-57040.mp3';
+  bg.type = 'audio/mpeg';
+  bg.loop = true;
+  bg.autoplay = true;
+  document.getElementsByTagName('body')[0].appendChild(bg);
 
-          let createsound = document.createElement('audio');
-          createsound.id= `sound`
-          createsound.type=`audio/mpeg`
-          createsound.autoplay= true
-          document.getElementsByTagName(`body`)[0].appendChild(createsound);
+  let createsound = document.createElement('audio');
+  createsound.id = 'sound';
+  createsound.type = 'audio/mpeg';
+  createsound.autoplay = true;
+  document.getElementsByTagName('body')[0].appendChild(createsound);
+
+  /*Jane*/
+  let soundImage = document.getElementById('soundImage');
+  let isMuted = false;
+  let muteButton = document.getElementById('muteButton');
+  muteButton.addEventListener('click', function () {
+    const audioElements = document.getElementsByTagName('audio');
+    if (isMuted) {
+      for (let i = 0; i < audioElements.length; i++) {
+        audioElements[i].muted = false;
+      }
+      soundImage.src = 'pic/sound_on.png';
+      isMuted = false;
+    } else {
+      for (let i = 0; i < audioElements.length; i++) {
+        audioElements[i].muted = true;
+      }
+      soundImage.src = 'pic/sound_off.png';
+      isMuted = true;
+    }
+  });
+
+  /* Toggle sound for createsound */
+  createsound.addEventListener('click', function () {
+    if (createsound.paused) {
+      createsound.play();
+    } else {
+      createsound.pause();
+    }
+  });
+            
         }
-
-
         sound(type){
           let sound = document.getElementById("sound");
 
@@ -126,6 +156,7 @@ class Sudoku{
   
                i++;
                    }
+
          }
   
         random(max) {
@@ -289,10 +320,7 @@ class Sudoku{
                else{
                 document.getElementById(`cell${i+1}`).className="sudoku-cell"
                }
-            }
-
-            
-               
+            }               
           }
           // when click correct, css change
         click(id){
@@ -312,7 +340,9 @@ class Sudoku{
                    if(this.HideList.length == 0){ 
                     this.sound("win")
                     document.getElementById(`message`).innerHTML=`<p>ชนะแล้ว เก่งเกินคน</p>`
+                    this.stopTimer();
                     }
+                    
                 }
                 else
                 {
@@ -347,17 +377,20 @@ class Sudoku{
                 this.countbaby=0
 
         }
-
+        
         startTime;
         timeInterval;
         elapsedTime = 0;
 
         startTimer() {
           this.startTime = Date.now() - this.elapsedTime;
+          this.timeInterval = window.localStorage.getItem('storeTimeInterval');
           this.timeInterval = setInterval(this.updateTimer.bind(this), 1000);
+          window.localStorage.setItem('storeTimeInterval',this.timeInterval);
         }
         stopTimer(){
-          clearInterval(this.timeInterval);
+          const timeInterval = localStorage.getItem('storeTimeInterval');
+          clearInterval(parseInt(timeInterval));
         }
 
         updateTimer() {
@@ -370,6 +403,7 @@ class Sudoku{
 
           const timerDisplay = document.getElementById("setTime");
           timerDisplay.textContent = this.padZero(hours) + ":" + this.padZero(minutes) + ":" + this.padZero(seconds);
+          window.localStorage.setItem('storeElapsedTime',this.elapsedTime);
         }
 
         padZero(value) {
@@ -382,7 +416,12 @@ class Sudoku{
         window.onload = function() {
         sudoku.startTimer();
         }
-            
+
+
+
+
+  
+  
             
     
     

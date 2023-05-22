@@ -7,6 +7,7 @@
       href="https://fonts.googleapis.com/css2?family=Darumadrop+One&display=swap"
       rel="stylesheet"
     />
+    <link rel="shortcut icon" href="#">
 
 
 
@@ -128,7 +129,8 @@
         background-color: #bbf1c4;
         border-radius: 20px;
       }
-      .reset {
+      /*-Jane-*/
+      .newGame {
         width: 200px;
         height: 50px;
         border: 2px solid black;
@@ -149,7 +151,16 @@
       .back :hover {
         filter: invert(100%);
       }
-
+      /*Jane*/
+      .mute img{
+        width: 80px;
+      }
+      .mute{
+        position: absolute;
+        bottom: 45px;
+        right: 80px;
+      }
+      /*------*/
 
     </style>
   </head>
@@ -190,7 +201,8 @@
           <div class="time-box" id="setTime">00:00:00</div>
         </div>
         &nbsp;
-        <div class="reset" onclick="" id="resetButton">RESET</div>
+        <div class="newGame" onclick="" id="newGameButton">New Game</div>
+        <div class="mute" onclick="" id="muteButton"><img id="soundImage" src="pic/sound_on.png"></div>
       </div>
     </div>
 
@@ -202,9 +214,14 @@
     <script src="Sudoku.js"></script>
 
     <script>
-    const sudokuCute = new Sudoku("easy")
-    Sudoku.createaudio() 
+    const sudokuCute = new Sudoku("easy");
+    Sudoku.createaudio();
+     
 
+    const newGameButton = document.getElementById('newGameButton');
+      newGameButton.addEventListener('click', function() {
+      location.reload(); // รีเซ็ตหน้าจอโดยโหลดหน้าเว็บใหม่
+    });
     </script>
 
   </body>

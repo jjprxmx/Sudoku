@@ -116,13 +116,16 @@
         color: darkgoldenrod;
       }
       .time-box {
+        /*-Jane-*/
+        text-align: center;
         width: 200px;
         height: 50px;
-        border: 3px solid orangered;
-        background-color: #fbe3d7;
+        border: 3px solid darkgreen;
+        background-color: #bbf1c4;
         border-radius: 20px;
       }
-      .reset {
+      /*-Jane-*/
+      .newGame{
         width: 200px;
         height: 50px;
         border: 2px solid black;
@@ -143,6 +146,16 @@
       .back :hover {
         filter: invert(100%);
       }
+      /*Jane*/
+      .mute img{
+        width: 80px;
+      }
+      .mute{
+        position: absolute;
+        bottom: 45px;
+        right: 80px;
+      }
+      /*------*/
     </style>
   </head>
   <body>
@@ -257,10 +270,11 @@
       <div class="menu">
         <div class="time">
           TIME
-          <div class="time-box"></div>
+          <div class="time-box" id="setTime">00:00:00</div>
         </div>
         &nbsp;
-        <div class="reset" onclick="">RESET</div>
+        <div class="newGame" onclick="" id="newGameButton">New Game</div>
+        <div class="mute" onclick="" id="muteButton"><img id="soundImage" src="pic/sound_on.png"></div>
       </div>
     </div>
 
@@ -272,8 +286,14 @@
  <script src="Sudoku.js"></script>
     
  <script>
- const sudokuCute = new Sudoku("hard")
- Sudoku.createaudio() 
+    const sudokuCute = new Sudoku("easy");
+    Sudoku.createaudio();
+     
+
+    const newGameButton = document.getElementById('newGameButton');
+      newGameButton.addEventListener('click', function() {
+      location.reload(); // รีเซ็ตหน้าจอโดยโหลดหน้าเว็บใหม่
+    }); 
  </script>
 
 
