@@ -8,12 +8,10 @@ class Sudoku{
     countbaby=0;
     selectDigits =0 
     HideList = []
-    NewHideList = [] 
     fail = 0
     success = 0 
     hidetotal;
     RealBoard = []
-    Fetch = []
     board;
         constructor(mode){
             if(mode == "easy"){
@@ -100,7 +98,6 @@ class Sudoku{
         Hide(){
             for(let i=0; i<this.hidetotal; i++){
                 this.RealBoard[this.HideList[i]] = {value: this.RealBoard[this.HideList[i]].value, isHide: true}
-                this.Fetch[this.HideList[i]] = {value: this.RealBoard[this.HideList[i]].value, isHide: true}
             }
          } 
          //Change 2D Arr to 1D Arr
@@ -113,7 +110,6 @@ class Sudoku{
                 } 
                 if(j===9) break
                 this.RealBoard.push({value: this.board[j][i], isHide: false})
-                this.Fetch.push({value: this.board[j][i], isHide: false})
             }
         }
 
@@ -160,19 +156,16 @@ class Sudoku{
               let current = this.random(81)
               if(i == 0){
                 this.HideList.push(current)
-                this.NewHideList.push(current)
                       i++ 
               }
   
               if(this.check(current)){
                 this.HideList.push(current)
-                this.NewHideList.push(current)
                   }else{
                       while(true){
                         current = this.random(81)
                           if(this.check(current)){
                             this.HideList.push(current)
-                            this.NewHideList.push(current)
                               break
                           }  
                       }
@@ -354,10 +347,41 @@ class Sudoku{
                 this.countbaby=0
 
         }
-    
 
-    
-    }
+        startTime;
+        timeInterval;
+        elapsedTime = 0;
+
+        startTimer() {
+          this.startTime = Date.now() - this.elapsedTime;
+          this.timeInterval = setInterval(this.updateTimer.bind(this), 1000);
+        }
+        stopTimer(){
+          clearInterval(this.timeInterval);
+        }
+
+        updateTimer() {
+          const currentTime = new Date().getTime();
+          this.elapsedTime = currentTime - this.startTime;
+
+          const hours = Math.floor(this.elapsedTime / (1000 * 60 * 60));
+          const minutes = Math.floor((this.elapsedTime % (1000 * 60 * 60)) / (1000 * 60));
+          const seconds = Math.floor((this.elapsedTime % (1000 * 60)) / 1000);
+
+          const timerDisplay = document.getElementById("setTime");
+          timerDisplay.textContent = this.padZero(hours) + ":" + this.padZero(minutes) + ":" + this.padZero(seconds);
+        }
+
+        padZero(value) {
+          return value < 10 ? "0" + value : value;
+        }
+        
+  }
+      
+        const sudoku = new Sudoku();
+        window.onload = function() {
+        sudoku.startTimer();
+        }
             
             
     
