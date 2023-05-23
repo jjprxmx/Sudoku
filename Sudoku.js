@@ -15,7 +15,7 @@ class Sudoku{
     board;
         constructor(mode){
             if(mode == "easy"){
-                this.hidetotal = 40 
+                this.hidetotal = 40
             }else if(mode == "med"){
                 this.hidetotal = 50
             }else{
@@ -382,13 +382,28 @@ class Sudoku{
         timeInterval;
         elapsedTime = 0;
 
-        // Store to LocalStorage
         test(){
           window.localStorage.setItem('board', JSON.stringify(this.RealBoard));
           window.localStorage.setItem('hide', JSON.stringify(this.HideList));
+          window.localStorage.setItem('hidetotal', JSON.stringify(this.hidetotal));
         }
-        //
-        
+
+        oldboard(){
+          const old = JSON.parse(localStorage.board)
+          const oldhide = JSON.parse(localStorage.hide)
+          const oldhidetotal = JSON.parse(localStorage.hidetotal)
+          this.RealBoard = old
+          this.HideList = oldhide
+          this.hidetotal = oldhidetotal
+          
+          this.RealBoard.forEach((element, index) => {
+            this.display(index+1, element.value, element.isHide)
+          });
+          
+          this.Hide() //Hide X positions use data in this.HideList
+          this.LuckyBoardCheck() //if start game and get that bear=9 -> disable that bear
+        }
+
         startTimer() {
           this.startTime = Date.now() - this.elapsedTime;
           this.timeInterval = window.localStorage.getItem('storeTimeInterval');
