@@ -21,14 +21,21 @@ class Sudoku{
             }else{
                 this.hidetotal = 60
             }
-          this.startTime = null;
-          this.board = this.createBoard() //create 2D Array store in this.board property
-          this.generateSudoku() //gen num1-9 in 2D Array
-          this.FullBoard() //change 2D Arr(this.board) to 1D Arr(this.RealBoard)
-          this.modeselect(this.hidetotal) //Random X positions to hide store in this.HideList
-          this.Hide() //Hide X positions use data in this.HideList
-          this.createCell(81)//Create Sudoku Board (HTML)   
-          this.LuckyBoardCheck() //if start game and get that bear=9 -> disable that bear
+            if (localStorage.getItem('board') !== null) {
+              this.oldboard()
+              this.startTime = null;
+            }else{
+              this.startTime = null;
+              this.board = this.createBoard() //create 2D Array store in this.board property
+              this.generateSudoku() //gen num1-9 in 2D Array
+              this.FullBoard() //change 2D Arr(this.board) to 1D Arr(this.RealBoard)
+              this.modeselect(this.hidetotal) //Random X positions to hide store in this.HideList
+              this.Hide() //Hide X positions use data in this.HideList
+              this.createCell(81)//Create Sudoku Board (HTML)   
+              this.LuckyBoardCheck() //if start game and get that bear=9 -> disable that bear
+              this.test()
+            }
+          
       }
         static createaudio(){
           let bg = document.createElement('audio');
@@ -334,8 +341,10 @@ class Sudoku{
                     console.log(this.RealBoard[id-1])
                    //decrease  Hidelist
                    this.HideList.splice(this.HideList.indexOf(id-1),1)
+                   this.hidetotal--
                    this.countTypeOfBear()
                    this.sound("correct")
+                   this.test()
                    
                    if(this.HideList.length == 0){ 
                     this.sound("win")
@@ -388,6 +397,10 @@ class Sudoku{
           window.localStorage.setItem('hidetotal', JSON.stringify(this.hidetotal));
         }
 
+        newgame(){
+          window.localStorage.clear()
+        }
+
         oldboard(){
           const old = JSON.parse(localStorage.board)
           const oldhide = JSON.parse(localStorage.hide)
@@ -395,7 +408,7 @@ class Sudoku{
           this.RealBoard = old
           this.HideList = oldhide
           this.hidetotal = oldhidetotal
-          
+          this.createCell(81)
           this.RealBoard.forEach((element, index) => {
             this.display(index+1, element.value, element.isHide)
           });
