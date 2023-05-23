@@ -106,6 +106,16 @@
       .back :hover {
         filter: invert(50%);
       } 
+      /*Jane*/
+      .mute img{
+        width: 80px;
+      }
+      .mute{
+        position: absolute;
+        bottom: 45px;
+        right: 80px;
+      }
+      /*------*/
     </style>
   </head>
   <body><div class="title">
@@ -176,7 +186,16 @@
       </div>
     </div>
     <a href="Home.html">
-      <div class="back"><img src="pic/back.png" /></div>
+      <div class="back" onclick="" id="backButton"><img src="pic/back.png" /></div>
     </a>
+
+    <!--Jane-->
+    <div class="mute" onclick="" id="muteButton"><img id="soundImage" src="pic/sound_on.png"></div>
+    <!--Jane-->
+
+    <!--Jane-->
+  <script src="Sudoku.js"></script>
+  <script> Sudoku.createaudio() </script>
+  <!--Jane-->
   </body>
 </html>

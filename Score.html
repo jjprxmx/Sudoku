@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Darumadrop+One&display=swap"
+      rel="stylesheet"
+    />
+    <title>Sudoku Project</title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+      }
+      body {
+        background-image: url(pic/bg-home.png);
+        background-size: cover;
+        font-family: 'Darumadrop One', cursive;
+      }
+      .content {
+        text-align: center;
+        position: absolute;
+        width: 50%;
+        left: 25%;
+        
+      }
+      .your{
+        font-size: 120px;
+        font-weight: 600;
+        color: #ecba40;
+        -webkit-text-stroke-width: 2px;
+        -webkit-text-stroke-color: black;
+      }
+      .score{
+        font-size: 120px;
+        font-weight: 600;
+        color: #eb3d24;
+        -webkit-text-stroke-width: 2px;
+        -webkit-text-stroke-color: black;
+      }
+      
+      /*Jane*/
+      .yourScore{
+        display: flex;
+      }
+      .content{
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        top: 50px;
+        align-items: center ;
+        font-size: 75px;
+        -webkit-text-stroke-width: 2px;
+        -webkit-text-stroke-color: black;
+      }
+      .box-score{
+        display: flex;
+        font-size: 40px;
+        border-radius: 10px;
+        border: 5px solid black;
+        margin-top: 50px;
+        background-color: white;
+        width: 700px;
+        height: 450px;
+      }
+      .modeBox{
+        width: 50%;
+      }
+      .timeBox{
+        width: 50%;
+      }
+      .back {
+        position: absolute;
+        bottom: 30px;
+        left: 35px;
+      }
+      .back img {
+        width: 100px;
+      }
+      .back :hover {
+        filter: invert(100%);
+      }
+      .mute img{
+        width: 80px;
+      }
+      .mute{
+        position: absolute;
+        bottom: 45px;
+        right: 80px;
+      }
+      
+      /*------*/
+    </style>
+  </head>
+  <body>
+    <div class="content">
+        <div class="yourScore">
+            <div class="your">YOUR</div>
+            &nbsp;&nbsp;&nbsp;
+            <div class="score">SCORE</div>
+        </div>
+          <!--Show score-->
+        <div class="box-score">
+            <div class="modeBox">MODE</div>
+            <div class="timeBox">TIME</div>
+        </div> 
+    </div>
+    
+    <!--Jane-->
+    <a href="Home.html"><div class="back" onclick="" id="backButton"><img  src="pic/back.png" /></div></a>
+    <div class="mute" onclick="" id="muteButton"><img id="soundImage" src="pic/sound_on.png"></div>
+    <!--Jane-->
+
+       <!--preme-->
+       <script src="Sudoku.js"></script>
+        <script> Sudoku.createaudio() </script>
+       <!--preme-->
+  </body>
+</html>

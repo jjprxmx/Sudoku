@@ -90,6 +90,39 @@
         -webkit-text-stroke-width: 1px;
         -webkit-text-stroke-color: black;
       }
+      /*Jane*/
+      .score{
+        font-size: 32px;
+        width: 250px;
+        padding: 7px;
+        height: 50px;
+        background-color: #ddb575;
+        border: 2px solid black;
+        border-radius: 50px;
+        margin-top: 15px;
+        margin-left: auto;
+        margin-right: auto;
+        cursor: pointer;
+      }
+      .score:hover{
+        width: 260px;
+        height: fit-content;
+        font-size: 36px;
+        color: greenyellow;
+        font-weight: 600;
+        -webkit-text-stroke-width: 1px;
+        -webkit-text-stroke-color: black;
+      }
+    .mute img {
+      width: 80px;
+    }
+
+    .mute {
+      position: absolute;
+      bottom: 45px;
+      right: 80px;
+    }
+    /*Jane*/
     </style>
   </head>
   <body>
@@ -98,7 +131,12 @@
       <div class="name">SUDOKU</div>
       <a href="Mode.html"><div class="mode">PLAY</div></a>
       <a href="How-to-play.html"><div class="how-to-play">HOW TO PLAY</div></a>
+      <a href="Score.html"><div class="score">Score</div></a>
     </div>
+
+    <!--Jane-->
+    <div class="mute" onclick="" id="muteButton"><img id="soundImage" src="pic/sound_on.png"></div>
+    <!--Jane-->
 
        <!--preme-->
        <script src="Sudoku.js"></script>
