@@ -21,11 +21,13 @@ class Sudoku{
             }else{
                 this.hidetotal = 60
             }
+
             if (localStorage.getItem('board') !== null) {
-              this.oldboard()
-              this.startTime = null;
-            }else{
-              this.startTime = null;
+              this.startTime = 0;
+              this.oldboard();
+            }else{ 
+              this.newgame();
+              this.startTime = 0;
               this.board = this.createBoard() //create 2D Array store in this.board property
               this.generateSudoku() //gen num1-9 in 2D Array
               this.FullBoard() //change 2D Arr(this.board) to 1D Arr(this.RealBoard)
@@ -349,6 +351,7 @@ class Sudoku{
                    if(this.HideList.length == 0){ 
                     this.sound("win")
                     document.getElementById(`message`).innerHTML=`<p>ชนะแล้ว เก่งเกินคน</p>`
+                    this.newgame();
                     this.stopTimer();
                     }
                     
@@ -387,10 +390,6 @@ class Sudoku{
 
         }
         
-        startTime;
-        timeInterval;
-        elapsedTime = 0;
-
         test(){
           window.localStorage.setItem('board', JSON.stringify(this.RealBoard));
           window.localStorage.setItem('hide', JSON.stringify(this.HideList));
@@ -398,7 +397,7 @@ class Sudoku{
         }
 
         newgame(){
-          window.localStorage.clear()
+          window.localStorage.clear();
         }
 
         oldboard(){
@@ -418,39 +417,45 @@ class Sudoku{
         }
 
         startTimer() {
-          this.startTime = Date.now() - this.elapsedTime;
-          this.timeInterval = window.localStorage.getItem('storeTimeInterval');
+          const elapsedTime = localStorage.getItem("elapsedTime");
+          if (elapsedTime !== null) {
+            this.startTime = Date.now() - parseInt(elapsedTime, 10);
+            this.updateTimer();
+          } else {
+            this.startTime = Date.now();
+          }
           this.timeInterval = setInterval(this.updateTimer.bind(this), 1000);
-          window.localStorage.setItem('storeTimeInterval',this.timeInterval);
         }
-        stopTimer(){
-          const timeInterval = localStorage.getItem('storeTimeInterval');
-          clearInterval(parseInt(timeInterval));
+        
+        stopTimer() {
+          clearInterval(this.timeInterval);
+          this.newgame();
         }
-
+        
         updateTimer() {
-          const currentTime = new Date().getTime();
+          const currentTime = Date.now(); // ใช้ Date.now() แทนการสร้างวัตถุ Date ใหม่
           this.elapsedTime = currentTime - this.startTime;
-
+        
           const hours = Math.floor(this.elapsedTime / (1000 * 60 * 60));
           const minutes = Math.floor((this.elapsedTime % (1000 * 60 * 60)) / (1000 * 60));
           const seconds = Math.floor((this.elapsedTime % (1000 * 60)) / 1000);
-
+        
           const timerDisplay = document.getElementById("setTime");
           timerDisplay.textContent = this.padZero(hours) + ":" + this.padZero(minutes) + ":" + this.padZero(seconds);
-          window.localStorage.setItem('storeElapsedTime',this.elapsedTime);
+        
+          // บันทึกค่าเวลาที่ผ่านไปล่าสุดใน Local Storage
+          localStorage.setItem("elapsedTime", this.elapsedTime);
         }
-
+        
         padZero(value) {
-          return value < 10 ? "0" + value : value;
+          return value.toString().padStart(2, "0"); // ใช้ padStart() เพื่อใส่ "0" ข้างหน้าตัวเลขที่มีค่าน้อยกว่า 10
         }
         
   }
-      
-        const sudoku = new Sudoku();
-        window.onload = function() {
+      const sudoku = new Sudoku();
+      window.addEventListener("load", function() {
         sudoku.startTimer();
-        }
+  });
 
 
 

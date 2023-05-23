@@ -7,6 +7,8 @@
       href="https://fonts.googleapis.com/css2?family=Darumadrop+One&display=swap"
       rel="stylesheet"
     />
+    <link rel="shortcut icon" href="#">
+
     <title>Sudoku Project</title>
     <style>
       * {
@@ -273,7 +275,11 @@
           <div class="time-box" id="setTime">00:00:00</div>
         </div>
         &nbsp;
-        <div class="newGame" onclick="" id="newGameButton">New Game</div>
+
+        <!--preme cute-->
+        <div class="newGame" onclick="sudokuCute.newgame()" id="newGameButton">New Game</div>
+        <!--preme cute-->
+        
         <div class="mute" onclick="" id="muteButton"><img id="soundImage" src="pic/sound_on.png"></div>
       </div>
     </div>
@@ -286,7 +292,7 @@
  <script src="Sudoku.js"></script>
     
  <script>
-    const sudokuCute = new Sudoku("easy");
+    const sudokuCute = new Sudoku("hard");
     Sudoku.createaudio();
      
 
