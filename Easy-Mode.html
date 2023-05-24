@@ -7,8 +7,8 @@
       href="https://fonts.googleapis.com/css2?family=Darumadrop+One&display=swap"
       rel="stylesheet"
     />
-    <link rel="shortcut icon" href="#">
-    
+    <link rel="shortcut icon" href="#" />
+
     <title>Sudoku Project</title>
     <style>
       * {
@@ -18,6 +18,8 @@
       body {
         background-image: url(pic/bg-game.png);
         background-size: cover;
+        background-repeat: no-repeat;
+        height: 100vh;
         font-family: "Darumadrop One", cursive;
       }
       .main-content {
@@ -53,21 +55,21 @@
         cursor: not-allowed;
       }
 
-
       .testimg {
         margin: 2px;
-        width: 39px;
-        height: 39px;
-        cursor:default;
+        width: 40px;
+        height: 40px;
+        cursor: default;
       }
 
-      .testimg-select{
-        margin: 2px;
+      .testimg-select {
         width: 50px;
         height: 50px;
-        border: 2px solid rgb(250, 10, 10);
+        border: 3px solid green;
         background-color: #bbf1c4;
+        overflow: hidden;
       }
+
       /*--------*/
       .game {
         width: 60%;
@@ -83,6 +85,7 @@
         border-right: unset;
         width: 500px;
         height: 500px;
+        overflow: hidden;
       }
       .sudoku-cell {
         display: flex;
@@ -93,21 +96,23 @@
         background-color: white;
         cursor: pointer;
         font-size: 28px;
-
       }
-      
+
       .wrong-cell {
         color: darkred;
       }
       .sudoku-cell:nth-child(3n),
       .sudoku-cell:nth-child(6n) {
         border-right: 3px solid green;
+        overflow: visible;
       }
       .sudoku-cell:nth-child(n + 19):nth-child(-n + 27) {
         border-bottom: 3px solid green;
+        overflow: visible;
       }
       .sudoku-cell:nth-child(n + 46):nth-child(-n + 54) {
         border-bottom: 3px solid green;
+        overflow: visible;
       }
       .menu {
         width: 20%;
@@ -149,52 +154,108 @@
         filter: invert(100%);
       }
       /*Jane*/
-      .mute img{
+      .mute img {
         width: 80px;
       }
-      .mute{
+      .mute {
         position: absolute;
         bottom: 45px;
         right: 80px;
       }
       /*------*/
-
     </style>
   </head>
   <body>
-
     <div class="main-content">
       <div class="digit">
         <table>
           <tr>
-            <td><img onclick="sudokuCute.select(1)" id="1" src="/preme/picture/2.png" class="digits-cell" /></td>
-            <td><img onclick="sudokuCute.select(2)" id="2" src="/preme/picture/3.png" class="digits-cell" /></td>
-            <td><img onclick="sudokuCute.select(3)" id="3" src="/preme/picture/4.png" class="digits-cell" /></td>
+            <td>
+              <img
+                onclick="sudokuCute.select(1)"
+                id="1"
+                src="/preme/picture/2.png"
+                class="digits-cell"
+              />
+            </td>
+            <td>
+              <img
+                onclick="sudokuCute.select(2)"
+                id="2"
+                src="/preme/picture/3.png"
+                class="digits-cell"
+              />
+            </td>
+            <td>
+              <img
+                onclick="sudokuCute.select(3)"
+                id="3"
+                src="/preme/picture/4.png"
+                class="digits-cell"
+              />
+            </td>
           </tr>
           <tr>
-            <td><img onclick="sudokuCute.select(4)" id="4" src="/preme/picture/5.png" class="digits-cell" /></td>
-            <td><img onclick="sudokuCute.select(5)" id="5" src="/preme/picture/6.png" class="digits-cell" /></td>
-            <td><img onclick="sudokuCute.select(6)" id="6" src="/preme/picture/7.png" class="digits-cell" /></td>
+            <td>
+              <img
+                onclick="sudokuCute.select(4)"
+                id="4"
+                src="/preme/picture/5.png"
+                class="digits-cell"
+              />
+            </td>
+            <td>
+              <img
+                onclick="sudokuCute.select(5)"
+                id="5"
+                src="/preme/picture/6.png"
+                class="digits-cell"
+              />
+            </td>
+            <td>
+              <img
+                onclick="sudokuCute.select(6)"
+                id="6"
+                src="/preme/picture/7.png"
+                class="digits-cell"
+              />
+            </td>
           </tr>
           <tr>
-            <td><img onclick="sudokuCute.select(7)" id="7" src="/preme/picture/8.png" class="digits-cell" /></td>
-            <td><img onclick="sudokuCute.select(8)" id="8" src="/preme/picture/9.png" class="digits-cell" /></td>
-            <td><img onclick="sudokuCute.select(9)" id="9" src="/preme/picture/10.png" class="digits-cell" /></td>
+            <td>
+              <img
+                onclick="sudokuCute.select(7)"
+                id="7"
+                src="/preme/picture/8.png"
+                class="digits-cell"
+              />
+            </td>
+            <td>
+              <img
+                onclick="sudokuCute.select(8)"
+                id="8"
+                src="/preme/picture/9.png"
+                class="digits-cell"
+              />
+            </td>
+            <td>
+              <img
+                onclick="sudokuCute.select(9)"
+                id="9"
+                src="/preme/picture/10.png"
+                class="digits-cell"
+              />
+            </td>
           </tr>
         </table>
       </div>
       <div class="game">
-
-      <!--preme cute-->
+        <!--preme cute-->
         <div id="message" class="message"></div>
-      <!--preme(ฝากทำ css ไม่ก็อะไรก็ได้ class="message")-->
+        <!--preme(ฝากทำ css ไม่ก็อะไรก็ได้ class="message")-->
 
-      
-        <div class="sudoku-board" id="sudoku-board">
-          
-
+        <div class="sudoku-board" id="sudoku-board"></div>
       </div>
-    </div>
       <div class="menu">
         <div class="time">
           TIME
@@ -203,31 +264,33 @@
         &nbsp;
 
         <!--preme cute-->
-        <div class="newGame" onclick="sudokuCute.newgame()" id="newGameButton">New Game</div>
+        <div class="newGame" onclick="sudokuCute.newgame()" id="newGameButton">
+          New Game
+        </div>
         <!--preme cute-->
-                   
-        <div class="mute" onclick="" id="muteButton"><img id="soundImage" src="pic/sound_on.png"></div>
+
+        <div class="mute" onclick="" id="muteButton">
+          <img id="soundImage" src="pic/sound_on.png" />
+        </div>
       </div>
     </div>
 
     <a href="Mode.html"
-      ><div class="back" onclick="" id="backButton"><img  src="pic/back.png" /></div
+      ><div class="back" onclick="" id="backButton">
+        <img src="pic/back.png" /></div
     ></a>
 
-   <!--preme-->
+    <!--preme-->
     <script src="Sudoku.js"></script>
 
     <script>
-    const sudokuCute = new Sudoku("easy");
-    Sudoku.createaudio();
-     
+      const sudokuCute = new Sudoku("easy");
+      Sudoku.createaudio();
 
-    const newGameButton = document.getElementById('newGameButton');
-      newGameButton.addEventListener('click', function() {
-      location.reload(); 
-    });
- 
+      const newGameButton = document.getElementById("newGameButton");
+      newGameButton.addEventListener("click", function () {
+        location.reload();
+      });
     </script>
-
   </body>
 </html>

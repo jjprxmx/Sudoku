@@ -15,7 +15,9 @@
       }
       body {
         background-image: url(pic/bg-home.png);
-        background-size: cover;
+        background-size:cover;
+        background-repeat: no-repeat;
+        height: 100vh;
         font-family: 'Darumadrop One', cursive;
       }
       .content {
@@ -48,31 +50,32 @@
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
-        top: 50px;
+        top: 30px;
         align-items: center ;
         font-size: 75px;
-        -webkit-text-stroke-width: 2px;
-        -webkit-text-stroke-color: black;
       }
       .box-score{
         display: flex;
-        font-size: 40px;
+        font-size: 32px;
         border-radius: 10px;
         border: 5px solid black;
-        margin-top: 50px;
+        margin-top: 20px;
         background-color: white;
         width: 700px;
-        height: 450px;
+        height: 400px;
+      }
+      .title-box{
+        font-size: 40px;
+        -webkit-text-stroke-width: 2px;
+        -webkit-text-stroke-color: black;
       }
       /*Preme*/
       .modeBox{
-        width: 40%;
+        width: 50%;
       }
       .timeBox{
-        width: 40%;
-      }
-      .boardBox{
-        width: 20%;
+        background-color: rgb(210, 240, 210);
+        width: 50%;
       }
       /*Preme*/
       .back {
@@ -102,6 +105,27 @@
         cursor: pointer;
       }
       /**/
+      /*Joon*/
+      .reset{
+        font-size: 32px;
+        width: 250px;
+        padding: 7px;
+        height: 50px;
+        background-color: #ddb575;
+        border: 2px solid black;
+        border-radius: 50px;
+        margin-top: 15px;
+        margin-left: auto;
+        margin-right: auto;
+        cursor: pointer;
+      }
+      .reset:hover{
+        color: greenyellow;
+        font-weight: 600;
+        -webkit-text-stroke-width: 1px;
+        -webkit-text-stroke-color: black;
+      }
+      /**/
     </style>
   </head>
   <body>
@@ -114,18 +138,17 @@
           <!--Show score--> <!--Preme-->
         <div class="box-score" style="overflow: auto;">
             <div class="modeBox">
-              <div style="color: #ecba40;">MODE</div>
+              <div class="title-box" style="color: #3980bf;">MODE</div>
 
             </div>
             <div class="timeBox">
-              <div style="color: #ecba40;">TIME</div>
-
-            </div>
-            <div class="boardBox">
-              <div style="color: #ecba40;">BOARD</div>
+              <div class="title-box" style="color: #49a256;">TIME</div>
 
             </div>
         </div> 
+        <div class="reset">
+          RESET SCORE
+        </div>
         <!--Preme-->
     </div>
     

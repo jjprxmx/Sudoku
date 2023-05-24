@@ -16,9 +16,11 @@
       body {
         background-image: url(pic/bg1.png);
         background-size: cover;
+        background-repeat: no-repeat;
+        height: 100vh;
         font-family: "Darumadrop One", cursive;
       }
-      .title{
+      .title {
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
@@ -31,7 +33,7 @@
       .main {
         position: absolute;
         top: 20%;
-        left:  50%;
+        left: 50%;
         transform: translateX(-50%);
         height: 500px;
         display: flex;
@@ -51,18 +53,18 @@
         height: 500px;
         display: flex;
       }
-      .slides input{
+      .slides input {
         display: none;
       }
-      .slide{
+      .slide {
         width: 20%;
         transition: 2s;
       }
-      .slide img{
+      .slide img {
         width: 800px;
       }
 
-      .navigation-manual{
+      .navigation-manual {
         position: absolute;
         width: 800px;
         margin-top: -40px;
@@ -70,29 +72,29 @@
         justify-content: center;
       }
 
-      .manual-btn{
+      .manual-btn {
         border: 2px solid brown;
         padding: 5px;
         border-radius: 10px;
         cursor: pointer;
         transition: 1s;
       }
-      .manual-btn:not(:last-child){
+      .manual-btn:not(:last-child) {
         margin-right: 40px;
       }
-      .manual-btn:hover{
+      .manual-btn:hover {
         background-color: salmon;
       }
-      #radio1:checked ~ .first{
+      #radio1:checked ~ .first {
         margin-left: 0;
-      } 
-      #radio2:checked ~ .first{
+      }
+      #radio2:checked ~ .first {
         margin-left: -20%;
-      } 
-      #radio3:checked ~ .first{
+      }
+      #radio3:checked ~ .first {
         margin-left: -40%;
-      } 
-      #radio4:checked ~ .first{
+      }
+      #radio4:checked ~ .first {
         margin-left: -60%;
       }
       .back {
@@ -118,19 +120,20 @@
       /*------*/
     </style>
   </head>
-  <body><div class="title">
-    <div style="color: #3980bf;">H</div>
-    <div style="color: #fdf354;">O</div>
-    <div style="color: #d33844;">W</div>
-    <div>&nbsp; &nbsp;</div>
-    <div style="color: #ebaaba;">T</div>
-    <div style="color: #49a256;">O</div>
-    <div>&nbsp; &nbsp;</div>
-    <div style="color: #d33844;">P</div>
-    <div style="color: #3980bf;">L</div>
-    <div style="color: #ebaaba;">A</div>
-    <div style="color: #fdf354;">Y</div>
-  </div>
+  <body>
+    <div class="title">
+      <div style="color: #3980bf">H</div>
+      <div style="color: #fdf354">O</div>
+      <div style="color: #d33844">W</div>
+      <div>&nbsp; &nbsp;</div>
+      <div style="color: #ebaaba">T</div>
+      <div style="color: #49a256">O</div>
+      <div>&nbsp; &nbsp;</div>
+      <div style="color: #d33844">P</div>
+      <div style="color: #3980bf">L</div>
+      <div style="color: #ebaaba">A</div>
+      <div style="color: #fdf354">Y</div>
+    </div>
     <div class="main">
       <div class="slider">
         <div class="slides">
