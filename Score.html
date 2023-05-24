@@ -64,12 +64,17 @@
         width: 700px;
         height: 450px;
       }
+      /*Preme*/
       .modeBox{
-        width: 50%;
+        width: 40%;
       }
       .timeBox{
-        width: 50%;
+        width: 40%;
       }
+      .boardBox{
+        width: 20%;
+      }
+      /*Preme*/
       .back {
         position: absolute;
         bottom: 30px;
@@ -91,6 +96,12 @@
       }
       
       /*------*/
+
+      /*Preme*/
+      .iambutton{
+        cursor: pointer;
+      }
+      /**/
     </style>
   </head>
   <body>
@@ -100,11 +111,22 @@
             &nbsp;&nbsp;&nbsp;
             <div class="score">SCORE</div>
         </div>
-          <!--Show score-->
-        <div class="box-score">
-            <div class="modeBox">MODE</div>
-            <div class="timeBox">TIME</div>
+          <!--Show score--> <!--Preme-->
+        <div class="box-score" style="overflow: auto;">
+            <div class="modeBox">
+              <div style="color: #ecba40;">MODE</div>
+
+            </div>
+            <div class="timeBox">
+              <div style="color: #ecba40;">TIME</div>
+
+            </div>
+            <div class="boardBox">
+              <div style="color: #ecba40;">BOARD</div>
+
+            </div>
         </div> 
+        <!--Preme-->
     </div>
     
     <!--Jane-->
@@ -114,7 +136,93 @@
 
        <!--preme-->
        <script src="Sudoku.js"></script>
-        <script> Sudoku.createaudio() </script>
+        <script> 
+        Sudoku.createaudio() 
+        
+        if(localStorage.history == null){
+          localStorage.setItem("history", "[]")
+        }
+
+          if(localStorage.mode == "easy" && localStorage.status == "true"){
+            let history = JSON.parse(localStorage.history)
+
+            let board = JSON.parse(localStorage.board)
+            let time = localStorage.elapsedTime
+            let mode = localStorage.mode
+
+            history.push({"mode": mode, "time": time, "board": board})
+
+            localStorage.removeItem("board")
+            localStorage.removeItem("elapsedTime")
+            localStorage.removeItem("mode")
+            localStorage.removeItem("hidetotal")
+            localStorage.removeItem("hide")
+            localStorage.removeItem("status")
+
+            localStorage.setItem("history", JSON.stringify(history))
+          }else if(localStorage.mode == "med" && localStorage.status == "true"){
+            let history = JSON.parse(localStorage.history)
+
+            let board = JSON.parse(localStorage.board2)
+            let time = localStorage.elapsedTime2
+            let mode = localStorage.mode2
+
+            history.push({"mode": mode, "time": time, "board": board})
+
+            localStorage.removeItem("board2")
+            localStorage.removeItem("elapsedTime2")
+            localStorage.removeItem("mode2")
+            localStorage.removeItem("hidetotal2")
+            localStorage.removeItem("hide2")
+            localStorage.removeItem("status")
+
+            localStorage.setItem("history", JSON.stringify(history))
+          }else if(localStorage.mode == "hard" && localStorage.status == "true"){
+            let history = JSON.parse(localStorage.history)
+
+            let board = JSON.parse(localStorage.board3)
+            let time = localStorage.elapsedTime3
+            let mode = localStorage.mode3
+
+            history.push({"mode": mode, "time": time, "board": board})
+
+            localStorage.removeItem("board3")
+            localStorage.removeItem("elapsedTime3")
+            localStorage.removeItem("mode3")
+            localStorage.removeItem("hidetotal3")
+            localStorage.removeItem("hide3")
+            localStorage.removeItem("status")
+
+            localStorage.setItem("history", JSON.stringify(history))
+          }
+        
+        let played = JSON.parse(localStorage.history)
+
+        played.forEach((element, index) => {
+          const showhistoryMODE = document.createElement("div");
+          showhistoryMODE.setAttribute("id", `mode${index + 1}`);
+          showhistoryMODE.innerHTML = `${element.mode}`
+
+          let elapsedTime = element.time
+          const hours = Math.floor(elapsedTime / (1000 * 60 * 60));
+          const minutes = Math.floor((elapsedTime % (1000 * 60 * 60)) / (1000 * 60));
+          const seconds = Math.floor((elapsedTime % (1000 * 60)) / 1000);
+
+          const showhistoryTIME = document.createElement("div");
+          showhistoryTIME.setAttribute("id", `time${index + 1}`);
+          showhistoryTIME.innerHTML = `${Sudoku.padZero(hours)} : ${Sudoku.padZero(minutes)} : ${Sudoku.padZero(seconds)}`
+
+          const showhistoryBOARD = document.createElement("div");
+          showhistoryBOARD.setAttribute("id", `board${index + 1}`);
+          showhistoryBOARD.setAttribute("class", `iambutton`);
+          showhistoryBOARD.innerHTML = `View`
+
+          document.getElementsByClassName("modeBox")[0].appendChild(showhistoryMODE);
+          document.getElementsByClassName("timeBox")[0].appendChild(showhistoryTIME);
+          document.getElementsByClassName("boardBox")[0].appendChild(showhistoryBOARD);
+        });
+
+        </script>
        <!--preme-->
   </body>
 </html>

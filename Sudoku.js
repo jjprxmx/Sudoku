@@ -3,7 +3,7 @@ class Sudoku {
     "เเค่นี้ก็เล่นผิด ไม่เเเปลกที่เค้าไม่รัก",
     "ไม่ใช่ๆ เริ่มใหม่สิ เเต่เรื่องของเขาเริ่มใหม่ไม่ได้นะ",
     "ผิดได้ไง กลับบ้านไปดูดนมนอนซะ!",
-    "ถ้าเค้าจะรักตอบผิดเค้าก็รัก เพราะงั้นตอบใหม่เถอะ",
+    "ถ้าเค้าจะรักตอบผิดเค้าก็รัก เพราะงั้นตอบใหม่เถอะ"
   ];
   countbaby = 0;
   selectDigits = 0;
@@ -13,30 +13,110 @@ class Sudoku {
   hidetotal;
   RealBoard = [];
   board;
-  localMode=0
+  currentmode;
   constructor(mode) {
+    //Preme
+    if(localStorage.history == null){
+      localStorage.setItem("history", "[]")
+    }
+    //Preme
+
     if (mode == "easy") {
       this.hidetotal = 40;
+      localStorage.setItem('mode',"easy")
+      if (localStorage.getItem("board") !== null) {
+        this.currentmode = 1;
+        this.startTime = 0;
+        this.oldboard(1);
+        //Preme
+        this.startTimer()
+        //Preme
+      } else {
+        this.currentmode = 1;
+        this.newgame();
+        this.startTime = 0;
+        this.board = this.createBoard(); //create 2D Array store in this.board property
+        this.generateSudoku(); //gen num1-9 in 2D Array
+        this.FullBoard(); //change 2D Arr(this.board) to 1D Arr(this.RealBoard)
+        this.modeselect(this.hidetotal); //Random X positions to hide store in this.HideList
+        this.Hide(); //Hide X positions use data in this.HideList
+
+        //Fix Duplicate Preme
+        if(document.getElementById("cell81") == null){
+        this.createCell(81); //Create Sudoku Board (HTML)
+        }
+        //Preme
+
+        this.LuckyBoardCheck(); //if start game and get that bear=9 -> disable that bear
+        this.test(1);
+        //Preme
+        this.startTimer()
+        //Preme
+      }
     } else if (mode == "med") {
       this.hidetotal = 50;
+      localStorage.setItem('mode',"med")
+      if (localStorage.getItem("board2") !== null) {
+        this.currentmode = 2;
+        this.startTime = 0;
+        this.oldboard(2);
+        //Preme
+        this.startTimer()
+        //Preme
+      } else {
+        this.currentmode = 2;
+        this.newgame();
+        this.startTime = 0;
+        this.board = this.createBoard(); //create 2D Array store in this.board property
+        this.generateSudoku(); //gen num1-9 in 2D Array
+        this.FullBoard(); //change 2D Arr(this.board) to 1D Arr(this.RealBoard)
+        this.modeselect(this.hidetotal); //Random X positions to hide store in this.HideList
+        this.Hide(); //Hide X positions use data in this.HideList
+        
+        //Fix Duplicate Preme
+        if(document.getElementById("cell81") == null){
+        this.createCell(81); //Create Sudoku Board (HTML)
+        }
+        //Preme
+
+        this.LuckyBoardCheck(); //if start game and get that bear=9 -> disable that bear
+        this.test(2);
+        //Preme
+        this.startTimer()
+        //Preme
+      }
     } else {
       this.hidetotal = 60;
-    }
+      localStorage.setItem('mode',"hard")
+      if (localStorage.getItem("board3") !== null) {
+        this.currentmode = 3;
+        this.startTime = 0;
+        this.oldboard(3);
+        //Preme
+        this.startTimer()
+        //Preme
+      } else {
+        this.currentmode = 3;
+        this.newgame();
+        this.startTime = 0;
+        this.board = this.createBoard(); //create 2D Array store in this.board property
+        this.generateSudoku(); //gen num1-9 in 2D Array
+        this.FullBoard(); //change 2D Arr(this.board) to 1D Arr(this.RealBoard)
+        this.modeselect(this.hidetotal); //Random X positions to hide store in this.HideList
+        this.Hide(); //Hide X positions use data in this.HideList
 
-    if (localStorage.getItem("board") !== null) {
-      this.startTime = 0;
-      this.oldboard();
-    } else {
-      this.newgame();
-      this.startTime = 0;
-      this.board = this.createBoard(); //create 2D Array store in this.board property
-      this.generateSudoku(); //gen num1-9 in 2D Array
-      this.FullBoard(); //change 2D Arr(this.board) to 1D Arr(this.RealBoard)
-      this.modeselect(this.hidetotal); //Random X positions to hide store in this.HideList
-      this.Hide(); //Hide X positions use data in this.HideList
-      this.createCell(81); //Create Sudoku Board (HTML)
-      this.LuckyBoardCheck(); //if start game and get that bear=9 -> disable that bear
-      this.test();
+        //Fix Duplicate Preme
+        if(document.getElementById("cell81") == null){
+        this.createCell(81); //Create Sudoku Board (HTML)
+        }
+        //Preme
+
+        this.LuckyBoardCheck(); //if start game and get that bear=9 -> disable that bear
+        this.test(3);
+        //Preme
+        this.startTimer()
+        //Preme
+      }
     }
   }
   static createaudio() {
@@ -356,15 +436,16 @@ class Sudoku {
       this.hidetotal--;
       this.countTypeOfBear();
       this.sound("correct");
-      this.test();
+      //Preme
+      this.test(this.currentmode);
+      //Preme
 
       if (this.HideList.length == 0) {
         this.sound("win");
-        document.getElementById(
-          `message`
-        ).innerHTML = `<p>ชนะแล้ว เก่งเกินคน</p>`;
-        this.newgame();
+        alert("ชนะแล้ว เก่งเกินคน")
         this.stopTimer();
+        window.localStorage.setItem("status","true")
+        window.location.href = "/Score.html"
       }
     } else {
       this.sound("wrong");
@@ -413,47 +494,148 @@ class Sudoku {
     this.countbaby = 0;
   }
 
-  test() {
-    window.localStorage.setItem("board", JSON.stringify(this.RealBoard));
-    window.localStorage.setItem("hide", JSON.stringify(this.HideList));
-    window.localStorage.setItem("hidetotal", JSON.stringify(this.hidetotal));
-    window.localStorage.setItem("mode", this.mode);
+  test(mode) {
+    //Preme
+    if(mode === 1){
+      window.localStorage.setItem("board", JSON.stringify(this.RealBoard));
+      window.localStorage.setItem("hide", JSON.stringify(this.HideList));
+      window.localStorage.setItem("hidetotal", JSON.stringify(this.hidetotal));
+    }else if(mode == 2){
+      window.localStorage.setItem("board2", JSON.stringify(this.RealBoard));
+      window.localStorage.setItem("hide2", JSON.stringify(this.HideList));
+      window.localStorage.setItem("hidetotal2", JSON.stringify(this.hidetotal));
+    }else{
+      window.localStorage.setItem("board3", JSON.stringify(this.RealBoard));
+      window.localStorage.setItem("hide3", JSON.stringify(this.HideList));
+      window.localStorage.setItem("hidetotal3", JSON.stringify(this.hidetotal));
+    }
+    //Preme
   }
 
   newgame() {
-    window.localStorage.clear();
+    //Preme
+    if(this.currentmode === 1){
+      window.localStorage.removeItem("board")
+      window.localStorage.removeItem("hide")
+      window.localStorage.removeItem("hidetotal")
+    }else if(this.currentmode === 2){
+      window.localStorage.removeItem("board2")
+      window.localStorage.removeItem("hide2")
+      window.localStorage.removeItem("hidetotal2")
+    }else{
+      window.localStorage.removeItem("board3")
+      window.localStorage.removeItem("hide3")
+      window.localStorage.removeItem("hidetotal3")
+    }
+    //Preme
   }
 
-  oldboard() {
-    const old = JSON.parse(localStorage.board);
-    const oldhide = JSON.parse(localStorage.hide);
-    const oldhidetotal = JSON.parse(localStorage.hidetotal);
-    this.RealBoard = old;
-    this.HideList = oldhide;
-    this.hidetotal = oldhidetotal;
-    this.createCell(81);
-    this.RealBoard.forEach((element, index) => {
+  oldboard(mode) {
+    //Preme
+    if(mode === 1){
+      const old = JSON.parse(localStorage.board);
+      const oldhide = JSON.parse(localStorage.hide);
+      const oldhidetotal = JSON.parse(localStorage.hidetotal);
+
+      this.RealBoard = old;
+      this.HideList = oldhide;
+      this.hidetotal = oldhidetotal;
+
+      //Fix Duplicate Preme
+      if(document.getElementById("cell81") == null){
+      this.createCell(81);
+      }
+      //Preme
+
+      this.RealBoard.forEach((element, index) => {
       this.display(index + 1, element.value, element.isHide);
     });
 
     this.Hide(); //Hide X positions use data in this.HideList
     this.LuckyBoardCheck(); //if start game and get that bear=9 -> disable that bear
+
+    }else if(mode === 2){
+      const old = JSON.parse(localStorage.board2);
+      const oldhide = JSON.parse(localStorage.hide2);
+      const oldhidetotal = JSON.parse(localStorage.hidetotal2);
+
+      this.RealBoard = old;
+      this.HideList = oldhide;
+      this.hidetotal = oldhidetotal;
+      
+      //Fix Duplicate Preme
+      if(document.getElementById("cell81") == null){
+        this.createCell(81);
+        }
+        //Preme  
+      
+      this.RealBoard.forEach((element, index) => {
+      this.display(index + 1, element.value, element.isHide);
+    });
+
+    this.Hide(); //Hide X positions use data in this.HideList
+    this.LuckyBoardCheck(); //if start game and get that bear=9 -> disable that bear
+
+    }else{
+      const old = JSON.parse(localStorage.board3);
+      const oldhide = JSON.parse(localStorage.hide3);
+      const oldhidetotal = JSON.parse(localStorage.hidetotal3);
+
+      this.RealBoard = old;
+      this.HideList = oldhide;
+      this.hidetotal = oldhidetotal;
+      
+      //Fix Duplicate Preme
+      if(document.getElementById("cell81") == null){
+        this.createCell(81);
+        }
+        //Preme
+  
+      this.RealBoard.forEach((element, index) => {
+      this.display(index + 1, element.value, element.isHide);
+    });
+
+    this.Hide(); //Hide X positions use data in this.HideList
+    this.LuckyBoardCheck(); //if start game and get that bear=9 -> disable that bear
+    }
+    //Preme
   }
 
   startTimer() {
-    const elapsedTime = localStorage.getItem("elapsedTime");
-    if (elapsedTime !== null) {
-      this.startTime = Date.now() - parseInt(elapsedTime, 10);
-      this.updateTimer();
-    } else {
-      this.startTime = Date.now();
+    //Preme
+    if(this.currentmode == 1){
+      const elapsedTime = localStorage.getItem("elapsedTime");
+      if (elapsedTime !== null) {
+        this.startTime = Date.now() - parseInt(elapsedTime, 10);
+        this.updateTimer();
+      } else {
+        this.startTime = Date.now();
+      }
+      this.timeInterval = setInterval(this.updateTimer.bind(this), 1000);
+    }else if(this.currentmode == 2){
+      const elapsedTime = localStorage.getItem("elapsedTime2");
+      if (elapsedTime !== null) {
+        this.startTime = Date.now() - parseInt(elapsedTime, 10);
+        this.updateTimer();
+      } else {
+        this.startTime = Date.now();
+      }
+      this.timeInterval = setInterval(this.updateTimer.bind(this), 1000);
+    }else{
+      const elapsedTime = localStorage.getItem("elapsedTime3");
+      if (elapsedTime !== null) {
+        this.startTime = Date.now() - parseInt(elapsedTime, 10);
+        this.updateTimer();
+      } else {
+        this.startTime = Date.now();
+      }
+      this.timeInterval = setInterval(this.updateTimer.bind(this), 1000);
     }
-    this.timeInterval = setInterval(this.updateTimer.bind(this), 1000);
+    //Preme
   }
 
   stopTimer() {
     clearInterval(this.timeInterval);
-    this.newgame();
   }
 
   updateTimer() {
@@ -475,13 +657,26 @@ class Sudoku {
       this.padZero(seconds);
 
     // บันทึกค่าเวลาที่ผ่านไปล่าสุดใน Local Storage
-    localStorage.setItem("elapsedTime", this.elapsedTime);
+    //Preme
+    if(this.currentmode == 1){
+      localStorage.setItem("elapsedTime", this.elapsedTime);
+    }else if(this.currentmode == 2){
+      localStorage.setItem("elapsedTime2", this.elapsedTime);
+    }else{
+      localStorage.setItem("elapsedTime3", this.elapsedTime);
+    }
+    //Preme
   }
 
   padZero(value) {
     return value.toString().padStart(2, "0"); // ใช้ padStart() เพื่อใส่ "0" ข้างหน้าตัวเลขที่มีค่าน้อยกว่า 10
   }
+
+  static padZero(value) {
+    return value.toString().padStart(2, "0"); // ใช้ padStart() เพื่อใส่ "0" ข้างหน้าตัวเลขที่มีค่าน้อยกว่า 10
+  }
 }
+/*
 const sudoku = new Sudoku();
 window.addEventListener("load", function () {
   sudoku.startTimer();
@@ -491,3 +686,4 @@ const backButton = document.getElementById('backButton');
 backButton.addEventListener('click', function() {
       sudoku.newgame(); 
     });
+*/
