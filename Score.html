@@ -153,7 +153,7 @@
 
             </div>
         </div> 
-        <div class="reset" onclick="localStorage.setItem('history', '[]'); location.reload();">
+        <div class="reset" onclick="ClearAll();">
           RESET SCORE
         </div>
         <!--Preme-->
@@ -182,7 +182,7 @@
             headers: headers
           };
 
-          await fetch(`https://crudcrud.com/api/10180d05ac934ccfb3d83d99bf4fcc28/history`, requestOptions)
+          await fetch(`https://crudcrud.com/api/db4432fd032843efa62855de937ac967/history`, requestOptions)
           .then(res => res.json())
           .then(data => afterLoadFunction(data))
         }
@@ -198,7 +198,6 @@
 
         for (var idx = 0; idx < APPLICATION_STATE.todoList.length; idx++) {
           var todoItem = APPLICATION_STATE.todoList[idx];
-          
           const showhistoryMODE = document.createElement("div");
           showhistoryMODE.setAttribute("id", `mode${idx + 1}`);
           showhistoryMODE.innerHTML = `${todoItem.name.mode}`
@@ -221,6 +220,41 @@
           document.getElementsByClassName("dum")[0].appendChild(showhistoryWRONG);
         }
       }
+
+
+      function deleteTodoItem(id) {
+      var headers = new Headers();
+      headers.append("Content-Type", "application/json");
+
+      var requestOptions = {
+        method: "DELETE",
+        headers: headers
+      };
+
+      fetch(`https://crudcrud.com/api/db4432fd032843efa62855de937ac967/history/${id}`, requestOptions)
+      .then(res => message())
+
+    }
+
+    function message() 
+    {
+    alert("ClearAll");
+    window.location = 'Score.html'
+    }
+
+      function ClearAll(){
+      fetch(`https://crudcrud.com/api/db4432fd032843efa62855de937ac967/history`, ({
+        method: "GET"
+      }))
+      .then(res => res.json())
+      .then(data => data.forEach(element => {
+        deleteTodoItem(element._id)
+        
+      })
+      )
+      
+      
+    }
 
         window.onload = function () {
         refreshTodoList();
