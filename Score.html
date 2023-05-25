@@ -169,7 +169,64 @@
         <script> 
         Sudoku.createaudio() 
         
-        let played = JSON.parse(localStorage.history)
+        var APPLICATION_STATE = {
+        todoList: []
+        }
+
+        async function loadTodoList(afterLoadFunction) {
+          var headers = new Headers();
+          headers.append("Content-Type", "application/json");
+
+          var requestOptions = {
+            method: "GET",
+            headers: headers
+          };
+
+          await fetch(`https://crudcrud.com/api/10180d05ac934ccfb3d83d99bf4fcc28/history`, requestOptions)
+          .then(res => res.json())
+          .then(data => afterLoadFunction(data))
+        }
+
+        function refreshTodoList () {
+          loadTodoList(function (data) {
+            APPLICATION_STATE.todoList = data;
+            renderTodoList();
+          });
+        }
+
+        function renderTodoList() {
+
+        for (var idx = 0; idx < APPLICATION_STATE.todoList.length; idx++) {
+          var todoItem = APPLICATION_STATE.todoList[idx];
+          
+          const showhistoryMODE = document.createElement("div");
+          showhistoryMODE.setAttribute("id", `mode${idx + 1}`);
+          showhistoryMODE.innerHTML = `${todoItem.name.mode}`
+
+          let elapsedTime = todoItem.name.time
+          const hours = Math.floor(elapsedTime / (1000 * 60 * 60));
+          const minutes = Math.floor((elapsedTime % (1000 * 60 * 60)) / (1000 * 60));
+          const seconds = Math.floor((elapsedTime % (1000 * 60)) / 1000);
+
+          const showhistoryTIME = document.createElement("div");
+          showhistoryTIME.setAttribute("id", `time${idx + 1}`);
+          showhistoryTIME.innerHTML = `${Sudoku.padZero(hours)} : ${Sudoku.padZero(minutes)} : ${Sudoku.padZero(seconds)}`
+
+          const showhistoryWRONG = document.createElement("div");
+          showhistoryWRONG.setAttribute("id", `wrong${idx + 1}`);
+          showhistoryWRONG.innerHTML = `${todoItem.name.wrong}`
+
+          document.getElementsByClassName("modeBox")[0].appendChild(showhistoryMODE);
+          document.getElementsByClassName("timeBox")[0].appendChild(showhistoryTIME);
+          document.getElementsByClassName("dum")[0].appendChild(showhistoryWRONG);
+        }
+      }
+
+        window.onload = function () {
+        refreshTodoList();
+      };
+
+        /*let played = JSON.parse(localStorage.history)
 
         played.forEach((element, index) => {
           const showhistoryMODE = document.createElement("div");
@@ -192,7 +249,7 @@
           document.getElementsByClassName("modeBox")[0].appendChild(showhistoryMODE);
           document.getElementsByClassName("timeBox")[0].appendChild(showhistoryTIME);
           document.getElementsByClassName("dum")[0].appendChild(showhistoryWRONG);
-        });
+        })*/;
         </script>
        <!--preme-->
   </body>

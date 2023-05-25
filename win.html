@@ -108,6 +108,22 @@
     bg.autoplay = true;
     document.getElementsByTagName("body")[0].appendChild(bg);
 
+
+  function addNewTodoItem(value) {
+  var headers = new Headers();
+  headers.append("Content-Type", "application/json");
+
+  var requestOptions = {
+    method: "POST",
+    body: JSON.stringify({
+      name: value
+    }),
+    headers: headers
+  };
+
+  fetch(`https://crudcrud.com/api/10180d05ac934ccfb3d83d99bf4fcc28/history`, requestOptions)
+}
+
     if(localStorage.history == null){
           localStorage.setItem("history", "[]")
         }
@@ -120,7 +136,8 @@
             let wrong = localStorage.countWrong1
             if(wrong == null) wrong = 0
 
-            history.push({"mode": mode, "time": time, "wrong": wrong})
+            //history.push({"mode": mode, "time": time, "wrong": wrong})
+            addNewTodoItem({"mode": mode, "time": time, "wrong": wrong}) 
 
             localStorage.removeItem("elapsedTime")
             localStorage.removeItem("mode")
@@ -139,7 +156,8 @@
             let wrong = localStorage.countWrong2
             if(wrong == null) wrong = 0
 
-            history.push({"mode": mode, "time": time, "wrong": wrong})
+            //history.push({"mode": mode, "time": time, "wrong": wrong})
+            addNewTodoItem({"mode": mode, "time": time, "wrong": wrong})
 
             localStorage.removeItem("elapsedTime2")
             localStorage.removeItem("mode2")
@@ -158,7 +176,8 @@
             let wrong = localStorage.countWrong3
             if(wrong == null) wrong = 0
 
-            history.push({"mode": mode, "time": time, "wrong": wrong})
+            //history.push({"mode": mode, "time": time, "wrong": wrong})
+            addNewTodoItem({"mode": mode, "time": time, "wrong": wrong})
 
             localStorage.removeItem("elapsedTime3")
             localStorage.removeItem("mode3")

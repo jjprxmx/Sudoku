@@ -60,7 +60,7 @@ class Sudoku {
         //Preme
       }
     } else if (mode == "med") {
-      this.hidetotal = 50;
+      this.hidetotal = 10;
       localStorage.setItem('mode',"med")
       if (localStorage.getItem("board2") !== null) {
         this.currentmode = 2;
@@ -92,7 +92,7 @@ class Sudoku {
         //Preme
       }
     } else {
-      this.hidetotal = 60;
+      this.hidetotal = 15;
       localStorage.setItem('mode',"hard")
       if (localStorage.getItem("board3") !== null) {
       
@@ -228,7 +228,7 @@ class Sudoku {
   LuckyBoardCheck() {
     for (let i = 1; i < 10; i++) {
       if (this.LuckyCount(i)) {
-        document.getElementById(`${i}`).setAttribute("onclick", "preme");
+        document.getElementById(`${i}`).setAttribute("onclick", "premeSoCute");
         document
           .getElementById(`${i}`)
           .setAttribute("class", "digits-cell-disabled");
@@ -298,13 +298,11 @@ class Sudoku {
   check = (value) => {
     for (let i = 0; i < 81; i++) {
       if (value == this.HideList[i]) {
-        this.fail = 0;
         this.success = 0;
         return false;
       } else {
         this.success++;
         if (this.success > this.HideList.length) {
-          this.fail = 0;
           this.success = 0;
           return true;
         }
@@ -648,7 +646,7 @@ class Sudoku {
   }
 
   startTimer() {
-    //Preme
+    //Jane
     if(this.currentmode == 1){
       const elapsedTime = localStorage.getItem("elapsedTime");
       if (elapsedTime !== null) {
@@ -677,7 +675,7 @@ class Sudoku {
       }
       this.timeInterval = setInterval(this.updateTimer.bind(this), 1000);
     }
-    //Preme
+    //Jane
   }
 
   stopTimer() {
