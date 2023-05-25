@@ -98,4 +98,78 @@
       </a>
     </div>
   </body>
+  <script>
+       let bg = document.createElement("audio");
+    bg.id = "bg";
+    bg.src =
+      "/preme/music/success-fanfare-trumpets-6185.mp3";
+    bg.type = "audio/mpeg";
+    bg.loop = false;
+    bg.autoplay = true;
+    document.getElementsByTagName("body")[0].appendChild(bg);
+
+    if(localStorage.history == null){
+          localStorage.setItem("history", "[]")
+        }
+
+          if(localStorage.mode == "easy" && localStorage.status == "true"){
+            let history = JSON.parse(localStorage.history)
+
+            let time = localStorage.elapsedTime
+            let mode = "Easy"
+            let wrong = localStorage.countWrong1
+            if(wrong == null) wrong = 0
+
+            history.push({"mode": mode, "time": time, "wrong": wrong})
+
+            localStorage.removeItem("elapsedTime")
+            localStorage.removeItem("mode")
+            localStorage.removeItem("hidetotal")
+            localStorage.removeItem("board")
+            localStorage.removeItem("hide")
+            localStorage.removeItem("countWrong1")
+            localStorage.removeItem("status")
+
+            localStorage.setItem("history", JSON.stringify(history))
+          }else if(localStorage.mode == "med" && localStorage.status == "true"){
+            let history = JSON.parse(localStorage.history)
+
+            let time = localStorage.elapsedTime2
+            let mode = "Medium"
+            let wrong = localStorage.countWrong2
+            if(wrong == null) wrong = 0
+
+            history.push({"mode": mode, "time": time, "wrong": wrong})
+
+            localStorage.removeItem("elapsedTime2")
+            localStorage.removeItem("mode2")
+            localStorage.removeItem("hidetotal2")
+            localStorage.removeItem("hide2")
+            localStorage.removeItem("board2")
+            localStorage.removeItem("countWrong2")
+            localStorage.removeItem("status")
+
+            localStorage.setItem("history", JSON.stringify(history))
+          }else if(localStorage.mode == "hard" && localStorage.status == "true"){
+            let history = JSON.parse(localStorage.history)
+
+            let time = localStorage.elapsedTime3
+            let mode = "Hard"
+            let wrong = localStorage.countWrong3
+            if(wrong == null) wrong = 0
+
+            history.push({"mode": mode, "time": time, "wrong": wrong})
+
+            localStorage.removeItem("elapsedTime3")
+            localStorage.removeItem("mode3")
+            localStorage.removeItem("hidetotal3")
+            localStorage.removeItem("hide3")
+            localStorage.removeItem("board3")
+            localStorage.removeItem("countWrong3")
+            localStorage.removeItem("status")
+
+            localStorage.setItem("history", JSON.stringify(history))
+          }
+   </script>
+
 </html>

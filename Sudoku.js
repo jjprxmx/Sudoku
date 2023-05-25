@@ -3,8 +3,11 @@ class Sudoku {
     "เเค่นี้ก็เล่นผิด ไม่เเเปลกที่เค้าไม่รัก",
     "ไม่ใช่ๆ เริ่มใหม่สิ เเต่เรื่องของเขาเริ่มใหม่ไม่ได้นะ",
     "ผิดได้ไง กลับบ้านไปดูดนมนอนซะ!",
-    "ถ้าเค้าจะรักตอบผิดเค้าก็รัก เพราะงั้นตอบใหม่เถอะ"
+    "ถ้าเค้าจะรักตอบผิดเค้าก็รัก เพราะงั้นตอบใหม่เถอะ",
+    "You have had great success being a total idiot.",
+    "Did you hear God call you an idiot?"
   ];
+  countWrong=0;
   countbaby = 0;
   selectDigits = 0;
   HideList = [];
@@ -20,17 +23,20 @@ class Sudoku {
       localStorage.setItem("history", "[]")
     }
     //Preme
-
+//เช็คโหมด
     if (mode == "easy") {
-      this.hidetotal = 40;
+      this.hidetotal = 4;
       localStorage.setItem('mode',"easy")
       if (localStorage.getItem("board") !== null) {
+
+      //กรณีมีข้อมูลเดิมอยู่
         this.currentmode = 1;
         this.startTime = 0;
         this.oldboard(1);
         //Preme
         this.startTimer()
         //Preme
+       
       } else {
         this.currentmode = 1;
         this.newgame();
@@ -89,6 +95,7 @@ class Sudoku {
       this.hidetotal = 60;
       localStorage.setItem('mode',"hard")
       if (localStorage.getItem("board3") !== null) {
+      
         this.currentmode = 3;
         this.startTime = 0;
         this.oldboard(3);
@@ -120,41 +127,66 @@ class Sudoku {
     }
   }
   static createaudio() {
+
+    let isMuted;
+
     let bg = document.createElement("audio");
     bg.id = "bg";
     bg.src =
       "/preme/music/game-comedy-interesting-playful-sweet-bright-childish-music-57040.mp3";
     bg.type = "audio/mpeg";
     bg.loop = true;
-    bg.autoplay = true;
+    bg.autoplay = !isMuted;
     document.getElementsByTagName("body")[0].appendChild(bg);
+
+    if(localStorage.muted == "true" && localStorage.muted != null ){
+      isMuted = true
+      
+      document.getElementById("soundImage").src = "pic/sound_off.png";
+      document.getElementById("bg").pause()
+    }else{
+      isMuted = false
+      localStorage.setItem("muted", "false")
+
+      document.getElementById("soundImage").src = "pic/sound_on.png";
+      
+    }
 
     let createsound = document.createElement("audio");
     createsound.id = "sound";
     createsound.type = "audio/mpeg";
     createsound.autoplay = true;
     document.getElementsByTagName("body")[0].appendChild(createsound);
-
-    /*Jane*/
     let soundImage = document.getElementById("soundImage");
-    let isMuted = false;
+
+
+
+    
     let muteButton = document.getElementById("muteButton");
+      
     muteButton.addEventListener("click", function () {
       const audioElements = document.getElementsByTagName("audio");
       if (isMuted) {
         for (let i = 0; i < audioElements.length; i++) {
           audioElements[i].muted = false;
+          
         }
         soundImage.src = "pic/sound_on.png";
         isMuted = false;
+        localStorage.setItem("muted", "false")
+        document.getElementById("bg").play()
       } else {
         for (let i = 0; i < audioElements.length; i++) {
           audioElements[i].muted = true;
         }
         soundImage.src = "pic/sound_off.png";
         isMuted = true;
+        localStorage.setItem("muted", "true")
+        document.getElementById("bg").pause()
       }
     });
+
+ 
 
     /* Toggle sound for createsound */
     createsound.addEventListener("click", function () {
@@ -164,11 +196,14 @@ class Sudoku {
         createsound.pause();
       }
     });
+
   }
   sound(type) {
     let sound = document.getElementById("sound");
 
     switch (type) {
+
+
       case "correct":
         sound.src = `/preme/music/digitscell.mp3`;
         sound.play();
@@ -193,7 +228,7 @@ class Sudoku {
   LuckyBoardCheck() {
     for (let i = 1; i < 10; i++) {
       if (this.LuckyCount(i)) {
-        document.getElementById(`${i}`).setAttribute("onclick", "eiei");
+        document.getElementById(`${i}`).setAttribute("onclick", "preme");
         document
           .getElementById(`${i}`)
           .setAttribute("class", "digits-cell-disabled");
@@ -330,67 +365,61 @@ class Sudoku {
   }
 
   generateSudoku() {
-    this.fillBoard(this.board);
+    this.fillCell(0, 0);
     return this.board;
   }
 
-  fillBoard() {
-    const row = 0;
-    const col = 0;
-    this.fillCell(row, col);
-  }
-
-  fillCell(row, col) {
-    if (col === 9) {
-      row++; //new line (row)
-      col = 0;
-      if (row === 9) {
-        return true; //last row is 8 because 0-8 = 9 [So 9 = 10 is more than sudoku size (9x9)]
+  fillCell(y, x) {
+    if (x === 9) {
+      y++; //next line
+      x = 0;
+      if (y === 9) {
+        return true; //last cell is 8 because 0-8 = 9 [So 9 = 10 is more than sudoku size (9x9)]
       }
     }
 
-    if (this.board[row][col] !== 0) {
-      // Default num is 0 (if not equal to 0) = filled (+1 to go next column)
-      return this.fillCell(row, col + 1);
+    if (this.board[y][x] !== 0) {
+      // Default num is 0 (if not equal to 0) = filled (+1 to go next cell)
+      return this.fillCell(y, x + 1);
     }
 
     const numbers = this.shuffle([1, 2, 3, 4, 5, 6, 7, 8, 9]);
 
     for (let i = 0; i < numbers.length; i++) {
       const num = numbers[i];
-      if (this.isValid(row, col, num)) {
-        this.board[row][col] = num; // Not Found same number (so set to that number)
-        if (this.fillCell(row, col + 1)) {
-          return true; //Check next line
+      if (this.isValid(y, x, num)) {
+        this.board[y][x] = num; // Not Found same number (so set to that number)
+        if (this.fillCell(y, x + 1)) {
+          return true; //Check next cell
         }
-        this.board[row][col] = 0; // Found same number (So set to default number is 0)
+        this.board[y][x] = 0; // Found same number (So set to default number is 0)
       }
     }
 
     return false; // Cant find valid num (So goto previous num)
   }
 
-  isValid(row, col, num) {
-    // Check same num in row
+  isValid(y, x, num) {
+    // Check same num in Y
     for (let i = 0; i < 9; i++) {
-      if (this.board[row][i] === num) {
+      if (this.board[y][i] === num) {
         return false;
       }
     }
 
-    // Check same num in column (line)
+    // Check same num in X
     for (let i = 0; i < 9; i++) {
-      if (this.board[i][col] === num) {
+      if (this.board[i][x] === num) {
         return false;
       }
     }
 
     // Check same number in the 3x3 box
-    const startRow = Math.floor(row / 3) * 3;
-    const startCol = Math.floor(col / 3) * 3;
+    const startY = Math.floor(y / 3) * 3;
+    const startX = Math.floor(x / 3) * 3;
     for (let i = 0; i < 3; i++) {
       for (let j = 0; j < 3; j++) {
-        if (this.board[startRow + i][startCol + j] === num) {
+        if (this.board[startY + i][startX + j] === num) {
           return false;
         }
       }
@@ -442,20 +471,30 @@ class Sudoku {
 
       if (this.HideList.length == 0) {
         this.sound("win");
-        alert("ชนะแล้ว เก่งเกินคน")
+  
+        //setTimeout(function({confirm("ชนะแล้ว เก่งเกินคน")},200);
+        setTimeout(()=> confirm("adadsa"), 200)
+
         this.stopTimer();
         window.localStorage.setItem("status","true")
-        window.location.href = "/Score.html"
+        window.location.href = "/win.html"
       }
     } else {
       this.sound("wrong");
-      document.getElementById(`message`).innerHTML = `<p>${
-        this.alert[this.random(this.alert.length)]
-      }</p>`;
+      if(localStorage.getItem(`countWrong${this.currentmode}`) != null){
+        let countwrong = parseInt(localStorage.getItem(`countWrong${this.currentmode}`))
+        countwrong++
+        localStorage.setItem(`countWrong${this.currentmode}`,countwrong)
+      }else{
+        localStorage.setItem(`countWrong${this.currentmode}`,"1")
+      }
+      
+      setTimeout(()=> confirm(this.alert[this.random(this.alert.length)]), 200);
+      
     }
-  }
+}
 
-  countTypeOfBear() {
+  countTypeOfBear(){
     let keep = [];
     for (let k = 0; k < 81; k++) {
       if (
@@ -500,14 +539,18 @@ class Sudoku {
       window.localStorage.setItem("board", JSON.stringify(this.RealBoard));
       window.localStorage.setItem("hide", JSON.stringify(this.HideList));
       window.localStorage.setItem("hidetotal", JSON.stringify(this.hidetotal));
+     
+      
     }else if(mode == 2){
       window.localStorage.setItem("board2", JSON.stringify(this.RealBoard));
       window.localStorage.setItem("hide2", JSON.stringify(this.HideList));
       window.localStorage.setItem("hidetotal2", JSON.stringify(this.hidetotal));
+   
     }else{
       window.localStorage.setItem("board3", JSON.stringify(this.RealBoard));
       window.localStorage.setItem("hide3", JSON.stringify(this.HideList));
       window.localStorage.setItem("hidetotal3", JSON.stringify(this.hidetotal));
+     
     }
     //Preme
   }
@@ -518,14 +561,17 @@ class Sudoku {
       window.localStorage.removeItem("board")
       window.localStorage.removeItem("hide")
       window.localStorage.removeItem("hidetotal")
+      window.localStorage.removeItem("elapsedTime")
     }else if(this.currentmode === 2){
       window.localStorage.removeItem("board2")
       window.localStorage.removeItem("hide2")
       window.localStorage.removeItem("hidetotal2")
+      window.localStorage.removeItem("elapsedTime2")
     }else{
       window.localStorage.removeItem("board3")
       window.localStorage.removeItem("hide3")
       window.localStorage.removeItem("hidetotal3")
+      window.localStorage.removeItem("elapsedTime3")
     }
     //Preme
   }
@@ -675,9 +721,14 @@ class Sudoku {
   static padZero(value) {
     return value.toString().padStart(2, "0"); // ใช้ padStart() เพื่อใส่ "0" ข้างหน้าตัวเลขที่มีค่าน้อยกว่า 10
   }
+
+  clearAll(){
+    this.stopTimer;
+    localStorage.clear()
+  }
 }
-/*
-const sudoku = new Sudoku();
+
+/*const sudoku = new Sudoku();
 window.addEventListener("load", function () {
   sudoku.startTimer();
 });
